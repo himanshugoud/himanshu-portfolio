@@ -30,4 +30,21 @@ export const projects: Project[] = [
     liveUrl: "https://raktsetu-phi.vercel.app/",
     githubUrl: "https://github.com/himanshugoud/raktsetu",
   },
+  {
+    n: "02",
+    category: "Frontend · Firebase",
+    title: "SmartPark — Real-Time Parking Management",
+    oneLiner:
+      "A real-time parking system that syncs 300 slots across 3 floors instantly, with zero booking conflicts.",
+    problem:
+      "Tracking live parking availability across multiple floors is hard to get right, and a subtle session bug was letting one user's booking data leak into another account after logout and login.",
+    solution:
+      "Built a single-page booking flow with live slot selection, duration, and pricing calculation, backed by Firebase Realtime Database syncing 300 slots across 3 floors — stress-tested with 50 concurrent writes at 100% success and zero conflicts. Traced and fixed the critical session-isolation bug by re-architecting the app's state management.",
+    stack: ["JavaScript", "Firebase", "HTML5", "CSS3"],
+    myRole:
+      "Owned the full build-to-deploy lifecycle independently — the booking UI, Firebase security rules, and production deployment on Firebase Hosting.",
+    image: "/images/projects/smartpark.png",
+    liveUrl: "https://smartpark-hg.web.app/",
+    githubUrl: "https://github.com/himanshugoud/smartpark",
+  },
 ];
