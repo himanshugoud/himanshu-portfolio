@@ -28,8 +28,7 @@
   --gold: #e8a33d;
 
   /* Layout */
-  --sidebar-width: 17.5rem;   /* 280px */
-  --container-max: 74rem;     /* 1184px content column inside main area */
+  --container-max: 74rem;     /* 1184px content column */
   --gutter: clamp(1.25rem, 4vw, 3.5rem);
 
   /* Radii */
@@ -61,7 +60,6 @@
   --font-display: var(--font-space-grotesk);
   --font-sans: var(--font-inter);
 
-  --spacing-sidebar: var(--sidebar-width);
   --spacing-gutter: var(--gutter);
 }
 
@@ -117,4 +115,16 @@ body {
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
+}
+
+/* Slow continuous rotation for the small "open to work" badge only.
+   Respects the prefers-reduced-motion rule above, which forces all
+   animation durations to ~0 for users who need reduced motion. */
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.animate-spin-slow {
+  animation: spin-slow 14s linear infinite;
 }
