@@ -28,8 +28,8 @@
   --gold: #e8a33d;
 
   /* Layout */
-  --container-max: 74rem;     /* 1184px content column */
-  --gutter: clamp(1.25rem, 4vw, 3.5rem);
+  --container-max: 100rem;    /* 1600px content column — wide, near edge-to-edge */
+  --gutter: clamp(1.5rem, 5vw, 5rem);
 
   /* Radii */
   --radius-sm: 4px;
