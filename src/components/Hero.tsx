@@ -27,7 +27,7 @@ export default function Hero() {
       variants={container}
       initial="hidden"
       animate="show"
-      className="content-col grid gap-14 pb-8 pt-10 md:grid-cols-[1fr_auto] md:items-center md:justify-between md:gap-24 md:pt-16 lg:gap-32"
+      className="content-col grid gap-14 pb-8 pt-10 md:grid-cols-[1fr_18rem] md:items-center md:gap-24 md:pt-16 lg:grid-cols-[1fr_20rem] lg:gap-32"
     >
       {/* ---------- Copy column ---------- */}
       <div className="flex flex-col gap-6 md:max-w-md lg:max-w-lg">
@@ -85,7 +85,7 @@ export default function Hero() {
       {/* ---------- Photo composition ---------- */}
       <motion.div
         variants={item}
-        className="relative mx-auto w-full max-w-[19rem] pt-6 sm:max-w-xs md:pt-0"
+        className="relative mx-auto w-full max-w-[19rem] pt-6 sm:max-w-xs md:max-w-none md:pt-0"
       >
         {/* decorative ring — large, overlapping the top of the composition */}
         <span
