@@ -9,6 +9,7 @@ import CertificationsSection from "@/components/CertificationsSection";
 import BeyondCodeSection from "@/components/BeyondCodeSection";
 import FinalVisualSection from "@/components/FinalVisualSection";
 import ContactSection from "@/components/ContactSection";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
@@ -24,6 +25,7 @@ export default function Home() {
       <BeyondCodeSection />
       <FinalVisualSection />
       <ContactSection />
+      <Footer />
     </main>
   );
 }
