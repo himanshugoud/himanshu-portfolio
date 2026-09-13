@@ -6,6 +6,7 @@ import ExperienceSection from "@/components/ExperienceSection";
 import WorkSection from "@/components/WorkSection";
 import ToolsSection from "@/components/ToolsSection";
 import CertificationsSection from "@/components/CertificationsSection";
+import BeyondCodeSection from "@/components/BeyondCodeSection";
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
       <WorkSection />
       <ToolsSection />
       <CertificationsSection />
+      <BeyondCodeSection />
     </main>
   );
 }
