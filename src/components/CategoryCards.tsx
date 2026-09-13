@@ -21,7 +21,7 @@ const cards: {
 
 const toneClasses: Record<Tone, string> = {
   blue: "bg-accent text-accent-ink border-accent",
-  orange: "bg-card-orange text-paper border-card-orange",
+  orange: "bg-card-orange text-ink border-card-orange",
   yellow: "bg-gold text-ink border-gold",
   pink: "bg-card-pink text-ink border-card-pink",
   green: "bg-card-green text-ink border-card-green",

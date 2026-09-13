@@ -35,7 +35,7 @@ const bar = {
 
 export default function ToolsSection() {
   return (
-    <section className="content-col py-10 md:py-16">
+    <section id="tools" className="content-col py-10 md:py-16">
       <motion.div
         variants={container}
         initial="hidden"

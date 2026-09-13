@@ -43,6 +43,7 @@ export default function CertificationsSection() {
       whileInView="show"
       viewport={{ once: true, amount: 0.2 }}
       className="content-col border-t border-line py-20 md:py-32"
+      id="certifications"
     >
       <motion.span
         variants={item}
@@ -53,7 +54,14 @@ export default function CertificationsSection() {
         Certifications
       </motion.span>
 
-      <div className="mt-8 divide-y divide-line border-y border-line">
+      <motion.h2
+        variants={item}
+        className="mt-4 font-display text-4xl font-bold leading-[1.05] tracking-tight text-ink sm:text-5xl lg:text-[3.4rem]"
+      >
+        Verified, not just claimed.
+      </motion.h2>
+
+      <div className="mt-10 divide-y divide-line border-y border-line">
         {certifications.map((cert) => (
           <motion.a
             key={cert.title}

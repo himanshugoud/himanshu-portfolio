@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 const timeline = [
   {
-    year: "'23 — Present",
+    year: "'23",
     org: "Madhav Institute of Technology and Science",
     detail: "Bachelor of Technology, Mathematics & Computing · Gwalior, India",
     current: true,
@@ -93,8 +93,13 @@ export default function ExperienceSection() {
                 }`}
                 aria-hidden="true"
               />
-              <h3 className="font-display text-xl font-semibold text-ink sm:text-2xl">
+              <h3 className="flex flex-wrap items-center gap-2 font-display text-xl font-semibold text-ink sm:text-2xl">
                 {entry.org}
+                {entry.current && (
+                  <span className="label-meta rounded-full bg-accent-ink px-2.5 py-1 text-accent">
+                    Present
+                  </span>
+                )}
               </h3>
               <p className="mt-1 text-muted">{entry.detail}</p>
             </div>

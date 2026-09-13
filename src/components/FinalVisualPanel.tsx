@@ -25,7 +25,7 @@ export default function FinalVisualPanel({
   hasImage: boolean;
 }) {
   return (
-    <section className="content-col py-10 md:py-16">
+    <section id="workspace" className="content-col py-10 md:py-16">
       <motion.div
         variants={container}
         initial="hidden"
@@ -35,7 +35,7 @@ export default function FinalVisualPanel({
       >
         <motion.span
           variants={item}
-          className="label-meta flex items-center gap-3 text-accent-ink/70"
+          className="label-meta flex items-center gap-3 text-accent-ink"
         >
           <span className="text-accent-ink">08</span>
           <span className="h-px w-5 bg-accent-ink/40" aria-hidden="true" />

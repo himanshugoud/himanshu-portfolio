@@ -10,7 +10,7 @@
   --paper: #f5f1e6;         /* warm off-white — primary background */
   --paper-dim: #ece5d4;     /* slightly deeper paper — card / panel surfaces on light bg */
   --ink: #15140f;           /* near-black, warm undertone — primary text */
-  --muted: #6f6a5c;         /* muted warm gray — secondary text */
+  --muted: #5c584c;         /* muted warm gray — secondary text (WCAG AA on paper + paper-dim) */
   --line: #ddd4bd;          /* hairline border on paper */
 
   /* Dark surfaces (tools panel, final CTA) */

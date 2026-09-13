@@ -18,7 +18,7 @@ const item = {
 
 export default function BeyondCodeSection() {
   return (
-    <section className="content-col py-10 md:py-16">
+    <section id="beyond-code" className="content-col py-10 md:py-16">
       <motion.div
         variants={container}
         initial="hidden"
@@ -28,7 +28,7 @@ export default function BeyondCodeSection() {
       >
         <motion.span
           variants={item}
-          className="label-meta flex items-center gap-3 text-ink/60"
+          className="label-meta flex items-center gap-3 text-ink/70"
         >
           <span className="text-ink">07</span>
           <span className="h-px w-5 bg-ink/40" aria-hidden="true" />
@@ -44,7 +44,7 @@ export default function BeyondCodeSection() {
 
         <div className="mt-12 grid gap-10 border-t border-ink/15 pt-10 md:grid-cols-2 md:gap-16">
           <motion.div variants={item}>
-            <span className="label-meta text-ink/60">
+            <span className="label-meta text-ink/70">
               Aug 2025 &ndash; Dec 2025
             </span>
             <h3 className="mt-2 font-display text-2xl font-bold text-ink">
@@ -69,7 +69,7 @@ export default function BeyondCodeSection() {
           </motion.div>
 
           <motion.div variants={item}>
-            <span className="label-meta text-ink/60">Sept 2025 &ndash; Present</span>
+            <span className="label-meta text-ink/70">Sept 2025 &ndash; Present</span>
             <h3 className="mt-2 font-display text-2xl font-bold text-ink">
               Soft Computing Research Society
             </h3>
