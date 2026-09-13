@@ -2,14 +2,29 @@
 
 import { motion } from "framer-motion";
 
-const skills: { name: string; descriptor: string; fill: number }[] = [
-  { name: "React.js", descriptor: "Daily driver", fill: 90 },
-  { name: "Node.js & Express", descriptor: "Core stack", fill: 85 },
-  { name: "MongoDB", descriptor: "Core stack", fill: 85 },
-  { name: "JavaScript / TypeScript", descriptor: "Core stack", fill: 88 },
-  { name: "Firebase", descriptor: "Comfortable", fill: 72 },
-  { name: "Git & GitHub", descriptor: "Daily driver", fill: 90 },
+const skills: {
+  name: string;
+  descriptor: string;
+  fill: number;
+  color: "accent" | "orange" | "gold" | "pink" | "green";
+}[] = [
+  { name: "React.js", descriptor: "Daily driver", fill: 90, color: "accent" },
+  { name: "Node.js & Express", descriptor: "Core stack", fill: 85, color: "orange" },
+  { name: "MongoDB", descriptor: "Core stack", fill: 85, color: "green" },
+  { name: "JavaScript / TypeScript", descriptor: "Core stack", fill: 88, color: "gold" },
+  { name: "Firebase", descriptor: "Comfortable", fill: 72, color: "pink" },
+  { name: "Git & GitHub", descriptor: "Daily driver", fill: 90, color: "accent" },
 ];
+
+const alsoTools = ["VS Code", "Postman", "Vite", "Tailwind CSS", "MongoDB Atlas"];
+
+const barColorClasses: Record<(typeof skills)[number]["color"], string> = {
+  accent: "bg-accent",
+  orange: "bg-card-orange",
+  gold: "bg-gold",
+  pink: "bg-card-pink",
+  green: "bg-card-green",
+};
 
 const container = {
   hidden: {},
@@ -81,12 +96,27 @@ export default function ToolsSection() {
                 <motion.div
                   variants={bar}
                   style={{ width: `${skill.fill}%`, transformOrigin: "left" }}
-                  className="h-px bg-accent"
+                  className={`h-px ${barColorClasses[skill.color]}`}
                 />
               </div>
             </motion.div>
           ))}
         </div>
+
+        <motion.div
+          variants={item}
+          className="mt-12 flex flex-wrap items-center gap-3 border-t border-dark-line pt-8 md:mt-16"
+        >
+          <span className="label-meta text-dark-muted">Also</span>
+          {alsoTools.map((tool) => (
+            <span
+              key={tool}
+              className="label-meta rounded-full border border-dark-line px-3 py-1.5 text-dark-ink"
+            >
+              {tool}
+            </span>
+          ))}
+        </motion.div>
       </motion.div>
     </section>
   );

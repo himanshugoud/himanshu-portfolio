@@ -7,19 +7,25 @@ const timeline = [
     year: "'23",
     org: "Madhav Institute of Technology and Science",
     detail: "Bachelor of Technology, Mathematics & Computing · Gwalior, India",
+    tag: "B.Tech",
     current: true,
+    origin: false,
   },
   {
     year: "'23",
     org: "Ebenezer Hr. Sec. School",
     detail: "Higher Secondary, CBSE · Gwalior, India",
+    tag: "Higher Secondary",
     current: false,
+    origin: false,
   },
   {
     year: "'21",
     org: "Pragati Vidya Peeth Morar",
     detail: "High School, CBSE · Gwalior, India",
+    tag: "High School",
     current: false,
+    origin: true,
   },
 ];
 
@@ -81,27 +87,41 @@ export default function ExperienceSection() {
         />
         {timeline.map((entry) => (
           <motion.div key={entry.org} variants={item} className="flex gap-4">
-            <span className="w-16 shrink-0 pt-1 font-display text-2xl font-bold text-accent sm:text-3xl">
+            <span
+              className={`w-16 shrink-0 pt-1 font-display text-2xl font-bold sm:text-3xl ${
+                entry.origin ? "text-gold" : "text-accent"
+              }`}
+            >
               {entry.year}
             </span>
             <div className="relative flex-1 pl-6">
               <span
                 className={`absolute left-0 top-2 h-3 w-3 -translate-x-1/2 rounded-full border-2 ${
-                  entry.current
-                    ? "border-accent bg-accent"
+                  entry.origin
+                    ? "border-gold bg-gold"
                     : "border-line bg-paper"
                 }`}
                 aria-hidden="true"
               />
-              <h3 className="flex flex-wrap items-center gap-2 font-display text-xl font-semibold text-ink sm:text-2xl">
-                {entry.org}
-                {entry.current && (
-                  <span className="label-meta rounded-full bg-accent-ink px-2.5 py-1 text-accent">
-                    Present
-                  </span>
-                )}
-              </h3>
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <h3 className="flex flex-wrap items-center gap-2 font-display text-xl font-semibold text-ink sm:text-2xl">
+                  {entry.org}
+                  {entry.current && (
+                    <span className="label-meta rounded-full bg-accent-ink px-2.5 py-1 text-accent">
+                      Present
+                    </span>
+                  )}
+                </h3>
+                <span className="label-meta rounded-full border border-line px-2.5 py-1 text-muted">
+                  {entry.tag}
+                </span>
+              </div>
               <p className="mt-1 text-muted">{entry.detail}</p>
+              {entry.origin && (
+                <span className="label-meta mt-1 block text-gold">
+                  Where it started
+                </span>
+              )}
             </div>
           </motion.div>
         ))}

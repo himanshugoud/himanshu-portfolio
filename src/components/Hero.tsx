@@ -30,7 +30,7 @@ export default function Hero() {
       className="content-col grid gap-14 pb-8 pt-10 md:grid-cols-[1fr_18rem] md:items-center md:gap-24 md:pt-16 lg:grid-cols-[1fr_20rem] lg:gap-32"
     >
       {/* ---------- Copy column ---------- */}
-      <div className="flex flex-col gap-6 md:max-w-md lg:max-w-lg">
+      <div className="flex flex-col gap-6 md:max-w-xl lg:max-w-2xl">
         <motion.span
           variants={item}
           className="label-meta flex items-center gap-2 text-muted"
@@ -87,12 +87,6 @@ export default function Hero() {
         variants={item}
         className="relative mx-auto w-full max-w-[19rem] pt-6 sm:max-w-xs md:max-w-none md:pt-0"
       >
-        {/* decorative ring — large, overlapping the top of the composition */}
-        <span
-          className="absolute -right-10 -top-14 z-0 hidden h-44 w-44 rounded-full border border-line sm:block"
-          aria-hidden="true"
-        />
-
         {/* backdrop arch */}
         <div className="absolute inset-2 rounded-t-[999px] rounded-b-[var(--radius-md)] border-2 border-gold bg-accent" />
 
@@ -108,8 +102,16 @@ export default function Hero() {
           />
         </div>
 
+        {/* decorative ring — drawn after the photo so its outline is
+            actually visible crossing over the top of the composition,
+            rather than being painted over by the opaque photo/arch */}
+        <span
+          className="absolute -right-10 -top-14 z-10 hidden h-44 w-44 rounded-full border border-line sm:block"
+          aria-hidden="true"
+        />
+
         {/* rotating badge */}
-        <div className="animate-spin-slow absolute -left-5 -top-5 h-20 w-20 sm:-left-8 sm:-top-8 sm:h-24 sm:w-24">
+        <div className="animate-spin-slow absolute -left-5 -top-5 z-20 h-20 w-20 sm:-left-8 sm:-top-8 sm:h-24 sm:w-24">
           <svg viewBox="0 0 100 100" className="h-full w-full">
             <circle cx="50" cy="50" r="48" fill="var(--ink)" />
             <path
@@ -126,12 +128,12 @@ export default function Hero() {
         </div>
 
         {/* location chip */}
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full bg-ink px-4 py-1.5">
+        <div className="absolute bottom-4 left-1/2 z-20 -translate-x-1/2 rounded-full bg-ink px-4 py-1.5">
           <span className="label-meta text-paper">{site.location}</span>
         </div>
 
         {/* sticker note */}
-        <div className="absolute -right-3 top-1/3 rotate-3 rounded-[var(--radius-sm)] border border-line bg-paper px-3 py-1.5 shadow-[3px_3px_0_var(--ink)] sm:-right-6">
+        <div className="absolute -right-3 top-1/3 z-20 rotate-3 rounded-[var(--radius-sm)] border border-line bg-paper px-3 py-1.5 shadow-[3px_3px_0_var(--ink)] sm:-right-6">
           <p className="font-display text-xs font-semibold text-ink">
             That&rsquo;s me!
           </p>
