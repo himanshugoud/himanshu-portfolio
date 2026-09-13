@@ -16,7 +16,7 @@ export default function WorkSection() {
         Things I&rsquo;ve built end to end.
       </h2>
 
-      <div className="mt-4 divide-y divide-line">
+      <div className="mt-10 flex flex-col gap-10 md:mt-16 md:gap-16">
         {projects.map((project, i) => {
           const hasImage = fs.existsSync(
             path.join(process.cwd(), "public", project.image)
@@ -25,7 +25,7 @@ export default function WorkSection() {
             <ProjectCard
               key={project.title}
               project={project}
-              reverse={i % 2 === 1}
+              tinted={i % 2 === 1}
               hasImage={hasImage}
             />
           );

@@ -20,107 +20,84 @@ const item = {
 
 export default function ProjectCard({
   project,
-  reverse = false,
+  tinted = false,
   hasImage = false,
 }: {
   project: Project;
-  reverse?: boolean;
+  tinted?: boolean;
   hasImage?: boolean;
 }) {
   return (
-    <motion.div
+    <motion.article
       variants={container}
       initial="hidden"
       whileInView="show"
-      viewport={{ once: true, amount: 0.15 }}
-      className="grid gap-10 py-16 first:pt-0 md:grid-cols-2 md:items-center md:gap-14 md:py-24"
+      viewport={{ once: true, amount: 0.1 }}
+      className={`overflow-hidden rounded-[var(--radius-md)] border border-line ${
+        tinted ? "bg-paper-dim" : "bg-paper"
+      }`}
     >
-      {/* ---------- Content ---------- */}
-      <div className={reverse ? "md:order-2" : ""}>
-        <motion.span
+      <div className="flex flex-col gap-6 p-6 sm:p-10 md:p-14">
+        {/* ---------- Eyebrow row ---------- */}
+        <motion.div
           variants={item}
-          className="label-meta flex items-center gap-3 text-muted"
+          className="flex items-center justify-between"
         >
-          <span className="text-ink">{project.n}</span>
-          <span className="h-px w-5 bg-muted" aria-hidden="true" />
-          {project.category}
-        </motion.span>
-
-        <motion.h3
-          variants={item}
-          className="mt-4 font-display text-3xl font-bold leading-tight tracking-tight text-ink sm:text-4xl"
-        >
-          {project.title}
-        </motion.h3>
-
-        <motion.p variants={item} className="mt-4 max-w-[48ch] text-lg text-muted">
-          {project.oneLiner}
-        </motion.p>
-
-        <motion.div variants={item} className="mt-8 flex flex-col gap-5">
-          <div>
-            <span className="label-meta text-ink">Problem</span>
-            <p className="mt-1.5 max-w-[52ch] text-muted">{project.problem}</p>
-          </div>
-          <div>
-            <span className="label-meta text-ink">Solution</span>
-            <p className="mt-1.5 max-w-[52ch] text-muted">{project.solution}</p>
-          </div>
-          <div>
-            <span className="label-meta text-ink">My role</span>
-            <p className="mt-1.5 max-w-[52ch] text-muted">{project.myRole}</p>
-          </div>
-        </motion.div>
-
-        <motion.div variants={item} className="mt-6 flex flex-wrap gap-2">
-          {project.stack.map((tech) => (
-            <span
-              key={tech}
-              className="label-meta rounded-full border border-line px-3 py-1.5 text-ink"
+          <span className="label-meta flex items-center gap-3 text-muted">
+            <span className="text-ink">{project.n}</span>
+            <span className="h-px w-5 bg-muted" aria-hidden="true" />
+            {project.category}
+          </span>
+          <div className="hidden items-center gap-5 sm:flex">
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-cursor-hover
+              className="label-meta text-ink underline decoration-line underline-offset-4 transition-colors hover:text-accent"
             >
-              {tech}
-            </span>
-          ))}
+              Live Site &#8599;
+            </a>
+            <a
+              href={project.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-cursor-hover
+              className="label-meta text-ink underline decoration-line underline-offset-4 transition-colors hover:text-accent"
+            >
+              GitHub
+            </a>
+          </div>
         </motion.div>
 
-        <motion.div variants={item} className="mt-8 flex items-center gap-6">
-          <a
-            href={project.liveUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            data-cursor-hover
-            className="group inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3 text-sm font-medium text-paper transition-colors hover:bg-accent"
+        {/* ---------- Title + one-liner ---------- */}
+        <div>
+          <motion.h3
+            variants={item}
+            className="font-display text-3xl font-bold leading-[1.05] tracking-tight text-ink sm:text-4xl lg:text-[2.75rem]"
           >
-            Live Site
-            <span className="transition-transform duration-200 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
-              &#8599;
-            </span>
-          </a>
-          <a
-            href={project.githubUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            data-cursor-hover
-            className="label-meta text-ink underline decoration-line underline-offset-4 transition-colors hover:text-accent"
+            {project.title}
+          </motion.h3>
+          <motion.p
+            variants={item}
+            className="mt-3 max-w-[60ch] text-lg text-muted"
           >
-            GitHub
-          </a>
-        </motion.div>
-      </div>
+            {project.oneLiner}
+          </motion.p>
+        </div>
 
-      {/* ---------- Visual ---------- */}
-      <motion.div
-        variants={item}
-        className={reverse ? "md:order-1" : ""}
-      >
-        <div className="group relative aspect-[4/3] w-full overflow-hidden rounded-[var(--radius-md)] border border-line bg-paper-dim">
+        {/* ---------- Large uninterrupted visual ---------- */}
+        <motion.div
+          variants={item}
+          className="group relative aspect-[16/9] w-full overflow-hidden rounded-[var(--radius-sm)] border border-line"
+        >
           {hasImage ? (
             <Image
               src={project.image}
               alt={`${project.title} screenshot`}
               fill
-              sizes="(min-width: 768px) 45vw, 90vw"
-              className="object-cover transition-transform duration-300 ease-out group-hover:scale-[1.03]"
+              sizes="(min-width: 768px) 70vw, 90vw"
+              className="object-cover object-top transition-transform duration-500 ease-out group-hover:scale-[1.02]"
             />
           ) : (
             <div className="flex h-full w-full flex-col items-center justify-center gap-2 border-2 border-dashed border-line p-8 text-center">
@@ -133,8 +110,68 @@ export default function ProjectCard({
               </p>
             </div>
           )}
-        </div>
-      </motion.div>
-    </motion.div>
+        </motion.div>
+
+        {/* ---------- Problem / Solution / Role — compact 3-up ---------- */}
+        <motion.div
+          variants={item}
+          className="grid gap-8 border-t border-line pt-8 sm:grid-cols-3"
+        >
+          <div>
+            <span className="label-meta text-ink">Problem</span>
+            <p className="mt-2 text-sm leading-relaxed text-muted">
+              {project.problem}
+            </p>
+          </div>
+          <div>
+            <span className="label-meta text-ink">Solution</span>
+            <p className="mt-2 text-sm leading-relaxed text-muted">
+              {project.solution}
+            </p>
+          </div>
+          <div>
+            <span className="label-meta text-ink">My role</span>
+            <p className="mt-2 text-sm leading-relaxed text-muted">
+              {project.myRole}
+            </p>
+          </div>
+        </motion.div>
+
+        {/* ---------- Stack + mobile links ---------- */}
+        <motion.div
+          variants={item}
+          className="flex flex-wrap items-center justify-between gap-4 border-t border-line pt-6"
+        >
+          <div className="flex flex-wrap gap-2">
+            {project.stack.map((tech) => (
+              <span
+                key={tech}
+                className="label-meta rounded-full border border-line px-3 py-1.5 text-ink"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
+          <div className="flex items-center gap-5 sm:hidden">
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="label-meta text-ink underline decoration-line underline-offset-4"
+            >
+              Live Site
+            </a>
+            <a
+              href={project.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="label-meta text-ink underline decoration-line underline-offset-4"
+            >
+              GitHub
+            </a>
+          </div>
+        </motion.div>
+      </div>
+    </motion.article>
   );
 }
