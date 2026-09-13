@@ -41,21 +41,17 @@ export default function AboutSection() {
       viewport={{ once: true, amount: 0.2 }}
       className="content-col border-t border-line py-20 md:py-32"
     >
-      <div className="grid gap-10 md:grid-cols-2 md:gap-16">
-        {/* ---------- Left: number, eyebrow, headline ---------- */}
-        <div className="flex flex-col gap-6">
-          <motion.span
-            variants={item}
-            className="label-meta flex items-center gap-3 text-muted"
-          >
-            <span className="text-ink">02</span>
-            <span className="h-px w-5 bg-muted" aria-hidden="true" />
-            About
-          </motion.span>
+      {/* ---------- Full-width eyebrow strip + divider ---------- */}
+      <motion.div variants={item} className="border-b border-line pb-6">
+        <span className="label-meta text-muted">( About / 02 )</span>
+      </motion.div>
 
+      <div className="grid gap-10 pt-10 md:grid-cols-2 md:gap-16 md:pt-14">
+        {/* ---------- Left: headline ---------- */}
+        <div className="flex flex-col gap-6">
           <motion.h2
             variants={item}
-            className="font-display text-4xl font-bold leading-[1.05] tracking-tight text-ink sm:text-5xl lg:text-[3.4rem]"
+            className="font-display text-4xl font-bold uppercase leading-[1.02] tracking-tight text-ink sm:text-5xl lg:text-[3.4rem]"
           >
             Building with curiosity.
             <br />

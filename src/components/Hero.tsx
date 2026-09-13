@@ -27,10 +27,10 @@ export default function Hero() {
       variants={container}
       initial="hidden"
       animate="show"
-      className="content-col grid gap-14 pb-8 pt-10 md:grid-cols-[1.15fr_0.85fr] md:items-center md:gap-10 md:pt-16"
+      className="content-col grid gap-14 pb-8 pt-10 md:grid-cols-[1fr_auto] md:items-center md:justify-between md:gap-24 md:pt-16 lg:gap-32"
     >
       {/* ---------- Copy column ---------- */}
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-6 md:max-w-md lg:max-w-lg">
         <motion.span
           variants={item}
           className="label-meta flex items-center gap-2 text-muted"
@@ -41,7 +41,7 @@ export default function Hero() {
 
         <motion.h1
           variants={item}
-          className="font-display text-[3rem] font-bold leading-[0.95] tracking-tight text-ink sm:text-[4rem] lg:text-[4.75rem]"
+          className="font-display text-[2.75rem] font-bold uppercase leading-[0.92] tracking-tight text-ink sm:text-[3.75rem] lg:text-[4.5rem]"
         >
           Hello, I&rsquo;m
           <br />
@@ -87,9 +87,9 @@ export default function Hero() {
         variants={item}
         className="relative mx-auto w-full max-w-[19rem] pt-6 sm:max-w-xs md:pt-0"
       >
-        {/* decorative ring */}
+        {/* decorative ring — large, overlapping the top of the composition */}
         <span
-          className="absolute -right-2 -top-6 hidden h-24 w-24 rounded-full border border-line sm:block"
+          className="absolute -right-10 -top-14 z-0 hidden h-44 w-44 rounded-full border border-line sm:block"
           aria-hidden="true"
         />
 

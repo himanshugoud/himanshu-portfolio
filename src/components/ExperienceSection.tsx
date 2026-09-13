@@ -73,23 +73,31 @@ export default function ExperienceSection() {
         </motion.p>
       </div>
 
-      {/* ---------- Right: vertical timeline ---------- */}
-      <div className="relative flex flex-col gap-12 border-l border-line pl-8">
+      {/* ---------- Right: vertical timeline — year sits left of a single continuous line ---------- */}
+      <div className="relative flex flex-col gap-10">
+        <span
+          className="absolute bottom-2 left-16 top-2 w-px bg-line"
+          aria-hidden="true"
+        />
         {timeline.map((entry) => (
-          <motion.div key={entry.org} variants={item} className="relative">
-            <span
-              className={`absolute -left-[2.31rem] top-1 h-3 w-3 rounded-full border-2 ${
-                entry.current
-                  ? "border-accent bg-accent"
-                  : "border-line bg-paper"
-              }`}
-              aria-hidden="true"
-            />
-            <span className="label-meta text-accent">{entry.year}</span>
-            <h3 className="mt-2 font-display text-xl font-semibold text-ink sm:text-2xl">
-              {entry.org}
-            </h3>
-            <p className="mt-1 text-muted">{entry.detail}</p>
+          <motion.div key={entry.org} variants={item} className="flex gap-4">
+            <span className="w-16 shrink-0 pt-1 font-display text-2xl font-bold text-accent sm:text-3xl">
+              {entry.year}
+            </span>
+            <div className="relative flex-1 pl-6">
+              <span
+                className={`absolute left-0 top-2 h-3 w-3 -translate-x-1/2 rounded-full border-2 ${
+                  entry.current
+                    ? "border-accent bg-accent"
+                    : "border-line bg-paper"
+                }`}
+                aria-hidden="true"
+              />
+              <h3 className="font-display text-xl font-semibold text-ink sm:text-2xl">
+                {entry.org}
+              </h3>
+              <p className="mt-1 text-muted">{entry.detail}</p>
+            </div>
           </motion.div>
         ))}
       </div>

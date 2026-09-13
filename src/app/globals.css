@@ -27,6 +27,12 @@
   /* Secondary editorial accent, used sparingly (Beyond Code / highlights) */
   --gold: #e8a33d;
 
+  /* Category-card palette only — the reference uses a fuller 5-color set
+     specifically for these cards while the rest of the site stays restrained */
+  --card-orange: #ef6c3b;
+  --card-pink: #f3aecb;
+  --card-green: #a8cf45;
+
   /* Layout */
   --container-max: 100rem;    /* 1600px content column — wide, near edge-to-edge */
   --gutter: clamp(1.5rem, 5vw, 5rem);
@@ -56,6 +62,9 @@
   --color-accent-ink: var(--accent-ink);
   --color-accent-dim: var(--accent-dim);
   --color-gold: var(--gold);
+  --color-card-orange: var(--card-orange);
+  --color-card-pink: var(--card-pink);
+  --color-card-green: var(--card-green);
 
   --font-display: var(--font-space-grotesk);
   --font-sans: var(--font-inter);

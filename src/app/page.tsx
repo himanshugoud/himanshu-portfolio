@@ -4,6 +4,7 @@ import CategoryCards from "@/components/CategoryCards";
 import AboutSection from "@/components/AboutSection";
 import ExperienceSection from "@/components/ExperienceSection";
 import WorkSection from "@/components/WorkSection";
+import ToolsSection from "@/components/ToolsSection";
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
       <AboutSection />
       <ExperienceSection />
       <WorkSection />
+      <ToolsSection />
     </main>
   );
 }
