@@ -12,7 +12,7 @@ export default function WorkSection() {
         Selected Work
       </span>
 
-      <h2 className="mt-4 font-display text-4xl font-bold leading-[1.05] tracking-tight text-ink sm:text-5xl lg:text-[3.4rem]">
+      <h2 className="mt-4 font-display text-4xl font-normal leading-[1.05] tracking-tight text-ink sm:text-5xl lg:text-[3.4rem]">
         Things I&rsquo;ve built end to end.
       </h2>
 

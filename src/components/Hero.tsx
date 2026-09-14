@@ -27,7 +27,7 @@ export default function Hero() {
       variants={container}
       initial="hidden"
       animate="show"
-      className="content-col grid gap-14 pb-8 pt-10 md:grid-cols-[1fr_18rem] md:items-center md:gap-24 md:pt-16 lg:grid-cols-[1fr_20rem] lg:gap-32"
+      className="content-col grid gap-14 pb-8 pt-10 md:min-h-[max(480px,calc(100vh-90px))] md:grid-cols-[1fr_18rem] md:items-center md:gap-24 md:pt-16 lg:grid-cols-[1fr_20rem] lg:gap-32"
     >
       {/* ---------- Copy column ---------- */}
       <div className="flex flex-col gap-6 md:max-w-xl lg:max-w-2xl">
@@ -41,7 +41,7 @@ export default function Hero() {
 
         <motion.h1
           variants={item}
-          className="font-display text-[2.75rem] font-bold uppercase leading-[0.92] tracking-tight text-ink sm:text-[3.75rem] lg:text-[4.5rem]"
+          className="font-display text-[2.75rem] font-normal uppercase leading-[0.92] tracking-tight text-ink sm:text-[3.75rem] lg:text-[4.5rem]"
         >
           Hello, I&rsquo;m
           <br />
@@ -90,14 +90,20 @@ export default function Hero() {
         {/* backdrop arch */}
         <div className="absolute inset-2 rounded-t-[999px] rounded-b-[var(--radius-md)] border-2 border-gold bg-accent" />
 
-        {/* photo, inset within the arch */}
-        <div className="relative aspect-[4/5] w-full overflow-hidden rounded-t-[999px] rounded-b-[var(--radius-md)]">
+        {/* invisible spacer establishing the composition's footprint */}
+        <div className="aspect-[4/5] w-full" aria-hidden="true" />
+
+        {/* real die-cut photo — deliberately sized larger than the arch and
+            left uncropped (object-contain) so the silhouette overflows the
+            arch edges naturally, the way a true cutout composition does,
+            instead of being cropped/clipped into the arch shape */}
+        <div className="pointer-events-none absolute -inset-x-[9%] -top-[7%] bottom-0 z-[5]">
           <Image
-            src="/images/profile/himanshu.jpg"
-            alt="Portrait of Himanshu Goud"
+            src="/images/profile/himanshu-cutout.png"
+            alt="Cutout portrait of Himanshu Goud"
             fill
-            sizes="(min-width: 768px) 32vw, 80vw"
-            className="object-cover"
+            sizes="(min-width: 768px) 36vw, 90vw"
+            className="object-contain object-bottom"
             priority
           />
         </div>
@@ -106,7 +112,7 @@ export default function Hero() {
             actually visible crossing over the top of the composition,
             rather than being painted over by the opaque photo/arch */}
         <span
-          className="absolute -right-10 -top-14 z-10 hidden h-44 w-44 rounded-full border border-line sm:block"
+          className="absolute -right-8 -top-12 z-10 hidden h-40 w-40 rounded-full border border-line sm:block"
           aria-hidden="true"
         />
 
@@ -128,13 +134,13 @@ export default function Hero() {
         </div>
 
         {/* location chip */}
-        <div className="absolute bottom-4 left-1/2 z-20 -translate-x-1/2 rounded-full bg-ink px-4 py-1.5">
+        <div className="absolute bottom-4 left-[42%] z-20 -translate-x-1/2 rounded-full bg-ink px-4 py-1.5">
           <span className="label-meta text-paper">{site.location}</span>
         </div>
 
         {/* sticker note */}
-        <div className="absolute -right-3 top-1/3 z-20 rotate-3 rounded-[var(--radius-sm)] border border-line bg-paper px-3 py-1.5 shadow-[3px_3px_0_var(--ink)] sm:-right-6">
-          <p className="font-display text-xs font-semibold text-ink">
+        <div className="absolute -right-3 top-[38%] z-20 rotate-3 rounded-[var(--radius-sm)] border border-line bg-paper px-3 py-1.5 shadow-[3px_3px_0_var(--ink)] sm:-right-6">
+          <p className="font-display text-xs font-normal text-ink">
             That&rsquo;s me!
           </p>
         </div>

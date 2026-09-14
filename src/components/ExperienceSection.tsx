@@ -66,7 +66,7 @@ export default function ExperienceSection() {
 
         <motion.h2
           variants={item}
-          className="font-display text-4xl font-bold leading-[1.05] tracking-tight text-ink sm:text-5xl lg:text-[3.4rem]"
+          className="font-display text-4xl font-normal leading-[1.05] tracking-tight text-ink sm:text-5xl lg:text-[3.4rem]"
         >
           Learning since 2021.
           <br />
@@ -88,7 +88,7 @@ export default function ExperienceSection() {
         {timeline.map((entry) => (
           <motion.div key={entry.org} variants={item} className="flex gap-4">
             <span
-              className={`w-16 shrink-0 pt-1 font-display text-2xl font-bold sm:text-3xl ${
+              className={`w-16 shrink-0 pt-1 font-display text-2xl font-normal sm:text-3xl ${
                 entry.origin ? "text-gold" : "text-accent"
               }`}
             >
@@ -104,7 +104,7 @@ export default function ExperienceSection() {
                 aria-hidden="true"
               />
               <div className="flex flex-wrap items-center justify-between gap-2">
-                <h3 className="flex flex-wrap items-center gap-2 font-display text-xl font-semibold text-ink sm:text-2xl">
+                <h3 className="flex flex-wrap items-center gap-2 font-display text-xl font-normal text-ink sm:text-2xl">
                   {entry.org}
                   {entry.current && (
                     <span className="label-meta rounded-full bg-accent-ink px-2.5 py-1 text-accent">

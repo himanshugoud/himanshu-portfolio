@@ -12,7 +12,7 @@ export default function Navbar() {
       <div className="content-col flex items-center justify-between py-4">
         <Link href="#home" className="flex items-center gap-2.5">
           <span className="h-2 w-2 rounded-full bg-accent" aria-hidden="true" />
-          <span className="font-display text-base font-bold uppercase tracking-tight text-ink">
+          <span className="font-display text-base font-normal uppercase tracking-tight text-ink">
             {site.name}
           </span>
         </Link>

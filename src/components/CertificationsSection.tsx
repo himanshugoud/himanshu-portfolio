@@ -56,7 +56,7 @@ export default function CertificationsSection() {
 
       <motion.h2
         variants={item}
-        className="mt-4 font-display text-4xl font-bold leading-[1.05] tracking-tight text-ink sm:text-5xl lg:text-[3.4rem]"
+        className="mt-4 font-display text-4xl font-normal leading-[1.05] tracking-tight text-ink sm:text-5xl lg:text-[3.4rem]"
       >
         Verified, not just claimed.
       </motion.h2>
@@ -73,7 +73,7 @@ export default function CertificationsSection() {
             className="group flex flex-col gap-2 py-6 sm:flex-row sm:items-center sm:justify-between sm:gap-6"
           >
             <div>
-              <h3 className="font-display text-lg font-semibold text-ink transition-colors group-hover:text-accent sm:text-xl">
+              <h3 className="font-display text-lg font-normal text-ink transition-colors group-hover:text-accent sm:text-xl">
                 {cert.title} &#8599;
               </h3>
               <p className="mt-1 max-w-[52ch] text-sm text-muted">

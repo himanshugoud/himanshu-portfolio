@@ -37,7 +37,8 @@ export default function BeyondCodeSection() {
 
         <motion.h2
           variants={item}
-          className="mt-6 font-display text-4xl italic leading-[1.05] text-ink sm:text-5xl lg:text-[3.4rem]"
+          className="mt-6 text-5xl leading-[1.05] text-ink sm:text-6xl lg:text-7xl"
+          style={{ fontFamily: "var(--font-hand)" }}
         >
           Off the clock.
         </motion.h2>
@@ -47,7 +48,7 @@ export default function BeyondCodeSection() {
             <span className="label-meta text-ink/70">
               Aug 2025 &ndash; Dec 2025
             </span>
-            <h3 className="mt-2 font-display text-2xl font-bold text-ink">
+            <h3 className="mt-2 font-display text-2xl font-normal text-ink">
               Mood Indigo, IIT Bombay
             </h3>
             <p className="mt-1 text-sm font-semibold text-ink/80">
@@ -55,11 +56,11 @@ export default function BeyondCodeSection() {
             </p>
             <p className="mt-3 text-ink/70">
               Ranked{" "}
-              <span className="font-display text-2xl font-bold text-ink">
+              <span className="font-display text-2xl font-normal text-ink">
                 6th
               </span>{" "}
               out of{" "}
-              <span className="font-display text-2xl font-bold text-ink">
+              <span className="font-display text-2xl font-normal text-ink">
                 530
               </span>{" "}
               participants pan-India in digital outreach and engagement for
@@ -70,7 +71,7 @@ export default function BeyondCodeSection() {
 
           <motion.div variants={item}>
             <span className="label-meta text-ink/70">Sept 2025 &ndash; Present</span>
-            <h3 className="mt-2 font-display text-2xl font-bold text-ink">
+            <h3 className="mt-2 font-display text-2xl font-normal text-ink">
               Soft Computing Research Society
             </h3>
             <p className="mt-1 text-sm font-semibold text-ink/80">

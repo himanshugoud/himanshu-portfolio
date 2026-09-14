@@ -29,7 +29,7 @@ export default function StatCounter({
 
   return (
     <motion.div className="flex flex-col gap-1">
-      <span className="font-display text-3xl font-bold text-ink sm:text-4xl">
+      <span className="font-display text-3xl font-normal text-ink sm:text-4xl">
         <span ref={ref}>{prefix}0</span>
       </span>
       <span className="label-meta text-muted">{label}</span>

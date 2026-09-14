@@ -33,7 +33,7 @@ export default function ContactSection() {
 
         <motion.h2
           variants={item}
-          className="mt-6 font-display text-4xl font-bold uppercase leading-[0.98] tracking-tight sm:text-6xl lg:text-7xl"
+          className="mt-6 font-display text-4xl font-normal uppercase leading-[0.98] tracking-tight sm:text-6xl lg:text-7xl"
         >
           Got an idea?
           <br />

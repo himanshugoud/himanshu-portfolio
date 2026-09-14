@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
-import "@fontsource/space-grotesk/500.css";
-import "@fontsource/space-grotesk/600.css";
-import "@fontsource/space-grotesk/700.css";
-import "@fontsource/inter/400.css";
-import "@fontsource/inter/500.css";
-import "@fontsource/inter/600.css";
+import "@fontsource/archivo-black/400.css";
+import "@fontsource/hanken-grotesk/400.css";
+import "@fontsource/hanken-grotesk/500.css";
+import "@fontsource/hanken-grotesk/600.css";
+import "@fontsource/caveat/500.css";
+import "@fontsource/caveat/600.css";
+import "@fontsource/spline-sans-mono/500.css";
+import "@fontsource/spline-sans-mono/600.css";
 import "./globals.css";
 import CustomCursor from "@/components/CustomCursor";
 import MotionProvider from "@/components/MotionProvider";

@@ -7,7 +7,7 @@ export default function Footer() {
     <footer className="content-col border-t border-line py-10 md:py-14">
       <div className="flex flex-col gap-8 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <p className="font-display text-lg font-semibold text-ink">
+          <p className="font-display text-lg font-normal text-ink">
             {site.name}
           </p>
           <p className="text-sm text-muted">{site.role}</p>

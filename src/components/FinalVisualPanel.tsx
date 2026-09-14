@@ -44,7 +44,7 @@ export default function FinalVisualPanel({
 
         <motion.h2
           variants={item}
-          className="mt-6 max-w-[36ch] font-display text-3xl font-bold leading-tight tracking-tight text-accent-ink sm:text-4xl"
+          className="mt-6 max-w-[36ch] font-display text-3xl font-normal leading-tight tracking-tight text-accent-ink sm:text-4xl"
         >
           Most of this got built at a small desk, late at night, one tab away
           from Stack Overflow.
@@ -80,12 +80,12 @@ export default function FinalVisualPanel({
 
           {/* playful annotations */}
           <div className="absolute -left-4 -top-4 -rotate-3 rounded-[var(--radius-sm)] border border-line bg-paper px-3 py-1.5 shadow-[3px_3px_0_var(--ink)] sm:-left-8">
-            <p className="font-display text-xs font-semibold text-ink">
+            <p className="font-display text-xs font-normal text-ink">
               fueled by chai &#9749;
             </p>
           </div>
           <div className="absolute -bottom-4 -right-3 rotate-2 rounded-[var(--radius-sm)] border border-line bg-paper px-3 py-1.5 shadow-[3px_3px_0_var(--ink)] sm:-right-6">
-            <p className="font-display text-xs font-semibold text-ink">
+            <p className="font-display text-xs font-normal text-ink">
               3 tabs of docs, always
             </p>
           </div>

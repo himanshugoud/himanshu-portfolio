@@ -51,7 +51,7 @@ export default function AboutSection() {
         <div className="flex flex-col gap-6">
           <motion.h2
             variants={item}
-            className="font-display text-4xl font-bold uppercase leading-[1.02] tracking-tight text-ink sm:text-5xl lg:text-[3.4rem]"
+            className="font-display text-4xl font-normal uppercase leading-[1.02] tracking-tight text-ink sm:text-5xl lg:text-[3.4rem]"
           >
             Building with curiosity.
             <br />
@@ -102,7 +102,8 @@ export default function AboutSection() {
 
           <motion.p
             variants={item}
-            className="font-display text-lg italic text-accent"
+            className="text-2xl text-accent"
+            style={{ fontFamily: "var(--font-hand)" }}
           >
             still turning ideas into working code.
           </motion.p>

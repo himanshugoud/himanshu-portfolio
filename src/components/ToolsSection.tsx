@@ -67,14 +67,17 @@ export default function ToolsSection() {
             <span className="h-px w-5 bg-dark-muted" aria-hidden="true" />
             Tools
           </span>
-          <span className="hidden font-display text-sm italic text-dark-muted sm:block">
+          <span
+            className="hidden text-xl text-dark-muted sm:block"
+            style={{ fontFamily: "var(--font-hand)" }}
+          >
             still adding to it &#8600;
           </span>
         </motion.div>
 
         <motion.h2
           variants={item}
-          className="mt-8 font-display text-4xl font-bold uppercase leading-[1.02] tracking-tight sm:text-5xl lg:text-[3.4rem]"
+          className="mt-8 font-display text-4xl font-normal uppercase leading-[1.02] tracking-tight sm:text-5xl lg:text-[3.4rem]"
         >
           The tools
           <br />
@@ -85,7 +88,7 @@ export default function ToolsSection() {
           {skills.map((skill) => (
             <motion.div key={skill.name} variants={item}>
               <div className="flex items-baseline justify-between">
-                <span className="font-display text-lg font-semibold">
+                <span className="font-display text-lg font-normal">
                   {skill.name}
                 </span>
                 <span className="label-meta text-dark-muted">

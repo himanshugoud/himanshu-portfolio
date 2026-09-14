@@ -74,7 +74,7 @@ export default function ProjectCard({
         <div>
           <motion.h3
             variants={item}
-            className="font-display text-3xl font-bold leading-[1.05] tracking-tight text-ink sm:text-4xl lg:text-[2.75rem]"
+            className="font-display text-3xl font-normal leading-[1.05] tracking-tight text-ink sm:text-4xl lg:text-[2.75rem]"
           >
             {project.title}
           </motion.h3>
