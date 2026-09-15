@@ -62,10 +62,8 @@ export default function ToolsSection() {
           variants={item}
           className="flex items-center justify-between border-b border-dark-line pb-6"
         >
-          <span className="label-meta flex items-center gap-3 text-dark-muted">
-            <span className="text-dark-ink">05</span>
-            <span className="h-px w-5 bg-dark-muted" aria-hidden="true" />
-            Tools
+          <span className="label-meta text-dark-muted">
+            ( Tools / 05 )
           </span>
           <span
             className="hidden text-xl text-dark-muted sm:block"

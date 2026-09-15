@@ -6,10 +6,8 @@ import ProjectCard from "@/components/ProjectCard";
 export default function WorkSection() {
   return (
     <section id="work" className="content-col border-t border-line py-20 md:py-32">
-      <span className="label-meta flex items-center gap-3 text-muted">
-        <span className="text-ink">04</span>
-        <span className="h-px w-5 bg-muted" aria-hidden="true" />
-        Selected Work
+      <span className="label-meta text-muted">
+        ( Selected Work / 04 )
       </span>
 
       <h2 className="mt-4 font-display text-4xl font-normal leading-[1.05] tracking-tight text-ink sm:text-5xl lg:text-[3.4rem]">

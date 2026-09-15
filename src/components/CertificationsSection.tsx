@@ -47,11 +47,9 @@ export default function CertificationsSection() {
     >
       <motion.span
         variants={item}
-        className="label-meta flex items-center gap-3 text-muted"
+        className="label-meta text-muted"
       >
-        <span className="text-ink">06</span>
-        <span className="h-px w-5 bg-muted" aria-hidden="true" />
-        Certifications
+        ( Certifications / 06 )
       </motion.span>
 
       <motion.h2

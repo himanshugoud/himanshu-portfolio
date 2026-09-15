@@ -28,11 +28,9 @@ export default function BeyondCodeSection() {
       >
         <motion.span
           variants={item}
-          className="label-meta flex items-center gap-3 text-ink/70"
+          className="label-meta text-ink/70"
         >
-          <span className="text-ink">07</span>
-          <span className="h-px w-5 bg-ink/40" aria-hidden="true" />
-          Beyond Code
+          ( Beyond Code / 07 )
         </motion.span>
 
         <motion.h2

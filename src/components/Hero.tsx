@@ -30,7 +30,7 @@ export default function Hero() {
       className="content-col grid gap-14 pb-8 pt-10 md:min-h-[max(480px,calc(100vh-90px))] md:grid-cols-[1fr_18rem] md:items-center md:gap-24 md:pt-16 lg:grid-cols-[1fr_20rem] lg:gap-32"
     >
       {/* ---------- Copy column ---------- */}
-      <div className="flex flex-col gap-6 md:max-w-xl lg:max-w-2xl">
+      <div className="flex flex-col gap-6">
         <motion.span
           variants={item}
           className="label-meta flex items-center gap-2 text-muted"
@@ -93,16 +93,18 @@ export default function Hero() {
         {/* invisible spacer establishing the composition's footprint */}
         <div className="aspect-[4/5] w-full" aria-hidden="true" />
 
-        {/* real die-cut photo — deliberately sized larger than the arch and
-            left uncropped (object-contain) so the silhouette overflows the
-            arch edges naturally, the way a true cutout composition does,
-            instead of being cropped/clipped into the arch shape */}
-        <div className="pointer-events-none absolute -inset-x-[9%] -top-[7%] bottom-0 z-[5]">
+        {/* real die-cut photo — the cutout is itself near-square, so the
+            overflow container matches that aspect ratio and is explicitly
+            sized wider than the arch (128% via inset-x), bottom-anchored,
+            so the silhouette naturally extends past the arch's edges and
+            above its top — the way a true cutout composition overflows,
+            instead of being padded/contained inside a mismatched box */}
+        <div className="pointer-events-none absolute inset-x-[-14%] bottom-0 z-[5] aspect-square">
           <Image
             src="/images/profile/himanshu-cutout.png"
             alt="Cutout portrait of Himanshu Goud"
             fill
-            sizes="(min-width: 768px) 36vw, 90vw"
+            sizes="(min-width: 768px) 42vw, 100vw"
             className="object-contain object-bottom"
             priority
           />

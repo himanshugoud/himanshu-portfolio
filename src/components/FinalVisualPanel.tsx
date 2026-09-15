@@ -35,11 +35,9 @@ export default function FinalVisualPanel({
       >
         <motion.span
           variants={item}
-          className="label-meta flex items-center gap-3 text-accent-ink"
+          className="label-meta text-accent-ink"
         >
-          <span className="text-accent-ink">08</span>
-          <span className="h-px w-5 bg-accent-ink/40" aria-hidden="true" />
-          Where I Build
+          ( Where I Build / 08 )
         </motion.span>
 
         <motion.h2

@@ -57,11 +57,9 @@ export default function ExperienceSection() {
       <div className="flex flex-col gap-6 md:sticky md:top-24 md:self-start">
         <motion.span
           variants={item}
-          className="label-meta flex items-center gap-3 text-muted"
+          className="label-meta text-muted"
         >
-          <span className="text-ink">03</span>
-          <span className="h-px w-5 bg-muted" aria-hidden="true" />
-          Experience
+          ( Experience / 03 )
         </motion.span>
 
         <motion.h2
