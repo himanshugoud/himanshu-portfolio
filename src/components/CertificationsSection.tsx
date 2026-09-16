@@ -59,8 +59,8 @@ export default function CertificationsSection() {
         Verified, not just claimed.
       </motion.h2>
 
-      <div className="mt-10 divide-y divide-line border-y border-line">
-        {certifications.map((cert) => (
+      <div className="mt-10 border-y border-line">
+        {certifications.map((cert, i) => (
           <motion.a
             key={cert.title}
             variants={item}
@@ -68,11 +68,17 @@ export default function CertificationsSection() {
             target="_blank"
             rel="noopener noreferrer"
             data-cursor-hover
-            className="group flex flex-col gap-2 py-6 sm:flex-row sm:items-center sm:justify-between sm:gap-6"
+            className={`group relative flex flex-col gap-2 overflow-hidden py-6 pl-0 transition-[padding] duration-300 ease-out hover:pl-4 sm:flex-row sm:items-center sm:justify-between sm:gap-6 ${
+              i > 0 ? "border-t border-line" : ""
+            }`}
           >
+            <span className="absolute left-0 top-0 h-full w-0.5 origin-top scale-y-0 bg-accent transition-transform duration-300 ease-out group-hover:scale-y-100" />
             <div>
-              <h3 className="font-display text-lg font-normal text-ink transition-colors group-hover:text-accent sm:text-xl">
-                {cert.title} &#8599;
+              <h3 className="flex items-center gap-1.5 font-display text-lg font-normal text-ink transition-colors group-hover:text-accent sm:text-xl">
+                {cert.title}
+                <span className="inline-block transition-transform duration-300 ease-out group-hover:translate-x-1 group-hover:-translate-y-1">
+                  &#8599;
+                </span>
               </h3>
               <p className="mt-1 max-w-[52ch] text-sm text-muted">
                 {cert.issuer} &middot; {cert.topic}

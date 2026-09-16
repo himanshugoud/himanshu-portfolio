@@ -20,8 +20,8 @@ export default function Home() {
         <CategoryCards />
         <AboutSection />
         <ExperienceSection />
-        <WorkSection />
         <ToolsSection />
+        <WorkSection />
         <CertificationsSection />
         <BeyondCodeSection />
         <FinalVisualSection />

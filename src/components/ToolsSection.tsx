@@ -63,7 +63,7 @@ export default function ToolsSection() {
           className="flex items-center justify-between border-b border-dark-line pb-6"
         >
           <span className="label-meta text-dark-muted">
-            ( Tools / 05 )
+            ( Tools / 04 )
           </span>
           <span
             className="hidden text-xl text-dark-muted sm:block"
@@ -84,16 +84,16 @@ export default function ToolsSection() {
 
         <div className="mt-12 grid gap-x-16 gap-y-10 sm:grid-cols-2 md:mt-16">
           {skills.map((skill) => (
-            <motion.div key={skill.name} variants={item}>
-              <div className="flex items-baseline justify-between">
-                <span className="font-display text-lg font-normal">
+            <motion.div key={skill.name} variants={item} className="group">
+              <div className="flex items-baseline justify-between transition-transform duration-300 ease-out group-hover:translate-x-1.5">
+                <span className="font-display text-lg font-normal transition-colors duration-300 group-hover:text-accent-ink">
                   {skill.name}
                 </span>
-                <span className="label-meta text-dark-muted">
+                <span className="label-meta text-dark-muted transition-colors duration-300 group-hover:text-dark-ink">
                   {skill.descriptor}
                 </span>
               </div>
-              <div className="mt-3 h-px w-full bg-dark-line">
+              <div className="mt-3 h-px w-full origin-left bg-dark-line transition-transform duration-300 ease-out group-hover:scale-y-[3]">
                 <motion.div
                   variants={bar}
                   style={{ width: `${skill.fill}%`, transformOrigin: "left" }}

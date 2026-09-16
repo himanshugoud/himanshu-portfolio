@@ -1,7 +1,14 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import {
+  motion,
+  useMotionValue,
+  useSpring,
+  useTransform,
+} from "framer-motion";
+import { Sparkles } from "lucide-react";
 import { site } from "@/lib/site";
 
 const container = {
@@ -20,14 +27,94 @@ const item = {
   },
 };
 
+const ease = [0.22, 1, 0.36, 1] as const;
+
+// Photo-side elements enter independently, after the headline, each with
+// its own distance/duration rather than one shared fade — the arch settles
+// first, the photo follows with more travel, then the ring/badge/sticker
+// arrive with their own timing so the composition feels assembled, not
+// switched on all at once.
+const photoGroup = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.13, delayChildren: 0.38 } },
+};
+const archVariant = {
+  hidden: { opacity: 0, scale: 0.92 },
+  show: { opacity: 1, scale: 1, transition: { duration: 0.7, ease } },
+};
+const photoVariant = {
+  hidden: { opacity: 0, y: 46 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.85, ease } },
+};
+const ringVariant = {
+  hidden: { opacity: 0, scale: 0.5, rotate: -25 },
+  show: { opacity: 1, scale: 1, rotate: 0, transition: { duration: 0.9, ease } },
+};
+const badgeVariant = {
+  hidden: { opacity: 0, scale: 0.6 },
+  show: { opacity: 1, scale: 1, transition: { duration: 0.6, ease } },
+};
+const chipVariant = {
+  hidden: { opacity: 0, y: 18 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease } },
+};
+const stickerVariant = {
+  hidden: { opacity: 0, x: 18, rotate: 12 },
+  show: { opacity: 1, x: 0, rotate: 3, transition: { duration: 0.5, ease } },
+};
+
 export default function Hero() {
+  // Subtle desktop-only mouse parallax across the photo composition.
+  // Disabled on touch devices — reduced-motion is handled globally via
+  // MotionConfig, which suppresses transform-driven motion values too.
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const mx = useMotionValue(0);
+  const my = useMotionValue(0);
+  const sx = useSpring(mx, { stiffness: 120, damping: 20, mass: 0.4 });
+  const sy = useSpring(my, { stiffness: 120, damping: 20, mass: 0.4 });
+
+  useEffect(() => {
+    const fine = window.matchMedia("(pointer: fine)").matches;
+    if (!fine) return;
+    const el = wrapRef.current;
+    if (!el) return;
+
+    const onMove = (e: PointerEvent) => {
+      const rect = el.getBoundingClientRect();
+      mx.set((e.clientX - rect.left) / rect.width - 0.5);
+      my.set((e.clientY - rect.top) / rect.height - 0.5);
+    };
+    const onLeave = () => {
+      mx.set(0);
+      my.set(0);
+    };
+
+    el.addEventListener("pointermove", onMove);
+    el.addEventListener("pointerleave", onLeave);
+    return () => {
+      el.removeEventListener("pointermove", onMove);
+      el.removeEventListener("pointerleave", onLeave);
+    };
+  }, [mx, my]);
+
+  const archX = useTransform(sx, [-0.5, 0.5], [-4, 4]);
+  const archY = useTransform(sy, [-0.5, 0.5], [-4, 4]);
+  const photoX = useTransform(sx, [-0.5, 0.5], [-8, 8]);
+  const photoY = useTransform(sy, [-0.5, 0.5], [-8, 8]);
+  const ringX = useTransform(sx, [-0.5, 0.5], [14, -14]);
+  const ringY = useTransform(sy, [-0.5, 0.5], [14, -14]);
+  const badgeX = useTransform(sx, [-0.5, 0.5], [-12, 12]);
+  const badgeY = useTransform(sy, [-0.5, 0.5], [-12, 12]);
+  const stickerX = useTransform(sx, [-0.5, 0.5], [10, -10]);
+  const stickerY = useTransform(sy, [-0.5, 0.5], [10, -10]);
+
   return (
     <motion.section
       id="home"
       variants={container}
       initial="hidden"
       animate="show"
-      className="content-col grid gap-14 pb-8 pt-10 md:min-h-[max(480px,calc(100vh-90px))] md:grid-cols-[1fr_18rem] md:items-center md:gap-24 md:pt-16 lg:grid-cols-[1fr_20rem] lg:gap-32"
+      className="content-col grid gap-14 pb-2 pt-10 md:min-h-[max(440px,calc(100vh-160px))] md:grid-cols-[1fr_18rem] md:items-center md:gap-24 md:pt-16 lg:grid-cols-[1fr_20rem] lg:gap-32"
     >
       {/* ---------- Copy column ---------- */}
       <div className="flex flex-col gap-6">
@@ -45,10 +132,44 @@ export default function Hero() {
         >
           Hello, I&rsquo;m
           <br />
-          <span className="text-accent underline decoration-4 underline-offset-8">
-            Himanshu
+          <span className="relative inline-block">
+            {/* hand-drawn arrow swooping into the name, matching the
+                reference's hand-lettered accent marks */}
+            <svg
+              viewBox="0 0 60 46"
+              aria-hidden="true"
+              className="pointer-events-none absolute -left-11 top-1/2 hidden h-10 w-14 -translate-y-1/2 -scale-x-100 text-ink sm:block"
+            >
+              <path
+                d="M4 4 C 2 20, 14 30, 30 26 C 40 23.5, 44 30, 38 40"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+              />
+              <path
+                d="M30 32 L38 40 L46 31"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+            <span className="relative z-[1] text-accent">Himanshu</span>
+            {/* tilted hand-drawn underline in gold, sitting slightly off
+                true-horizontal like the reference's marker-drawn line */}
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-x-0 -bottom-1 h-[5px] -rotate-2 rounded-full bg-gold sm:h-[6px]"
+            />
           </span>{" "}
           Goud
+          <Sparkles
+            aria-hidden="true"
+            className="ml-1 inline h-6 w-6 -translate-y-3 rotate-6 text-accent sm:h-8 sm:w-8"
+            strokeWidth={1.75}
+          />
         </motion.h1>
 
         <motion.p
@@ -84,22 +205,29 @@ export default function Hero() {
 
       {/* ---------- Photo composition ---------- */}
       <motion.div
-        variants={item}
+        ref={wrapRef}
+        variants={photoGroup}
         className="relative mx-auto w-full max-w-[19rem] pt-6 sm:max-w-xs md:max-w-none md:pt-0"
       >
-        {/* backdrop arch */}
-        <div className="absolute inset-2 rounded-t-[999px] rounded-b-[var(--radius-md)] border-2 border-gold bg-accent" />
+        {/* backdrop arch — gold border wraps the full shape (not just
+            an offset shadow on two edges), and the fill is a vertical
+            two-tone stripe pattern rather than flat blue, both
+            confirmed by pixel-sampling the reference screenshot */}
+        <motion.div
+          variants={archVariant}
+          style={{ x: archX, y: archY }}
+          className="arch-stripes absolute inset-2 overflow-hidden rounded-t-[999px] rounded-b-[var(--radius-md)] border-[14px] border-gold"
+        />
 
         {/* invisible spacer establishing the composition's footprint */}
         <div className="aspect-[4/5] w-full" aria-hidden="true" />
 
-        {/* real die-cut photo — the cutout is itself near-square, so the
-            overflow container matches that aspect ratio and is explicitly
-            sized wider than the arch (128% via inset-x), bottom-anchored,
-            so the silhouette naturally extends past the arch's edges and
-            above its top — the way a true cutout composition overflows,
-            instead of being padded/contained inside a mismatched box */}
-        <div className="pointer-events-none absolute inset-x-[-14%] bottom-0 z-[5] aspect-square">
+        {/* real die-cut photo */}
+        <motion.div
+          variants={photoVariant}
+          style={{ x: photoX, y: photoY }}
+          className="pointer-events-none absolute inset-x-[-14%] bottom-0 z-[5] aspect-square"
+        >
           <Image
             src="/images/profile/himanshu-cutout.png"
             alt="Cutout portrait of Himanshu Goud"
@@ -108,18 +236,26 @@ export default function Hero() {
             className="object-contain object-bottom"
             priority
           />
-        </div>
+        </motion.div>
 
-        {/* decorative ring — drawn after the photo so its outline is
-            actually visible crossing over the top of the composition,
-            rather than being painted over by the opaque photo/arch */}
-        <span
+        {/* decorative ring */}
+        <motion.span
+          variants={ringVariant}
+          style={{ x: ringX, y: ringY }}
           className="absolute -right-8 -top-12 z-10 hidden h-40 w-40 rounded-full border border-line sm:block"
           aria-hidden="true"
         />
 
-        {/* rotating badge */}
-        <div className="animate-spin-slow absolute -left-5 -top-5 z-20 h-20 w-20 sm:-left-8 sm:-top-8 sm:h-24 sm:w-24">
+        {/* rotating badge — rotation and parallax both driven by Motion so
+            they compose into one transform instead of fighting a CSS
+            keyframe animation set via a separate mechanism */}
+        <motion.div
+          variants={badgeVariant}
+          style={{ x: badgeX, y: badgeY }}
+          animate={{ rotate: 360 }}
+          transition={{ rotate: { duration: 14, repeat: Infinity, ease: "linear" } }}
+          className="absolute -left-5 -top-5 z-20 h-20 w-20 sm:-left-8 sm:-top-8 sm:h-24 sm:w-24"
+        >
           <svg viewBox="0 0 100 100" className="h-full w-full">
             <circle cx="50" cy="50" r="48" fill="var(--ink)" />
             <path
@@ -133,19 +269,29 @@ export default function Hero() {
               </textPath>
             </text>
           </svg>
-        </div>
+        </motion.div>
 
-        {/* location chip */}
-        <div className="absolute bottom-4 left-[42%] z-20 -translate-x-1/2 rounded-full bg-ink px-4 py-1.5">
+        {/* location chip — tucked against the bottom edge of the photo,
+            slightly overlapping it, rather than floating separately below
+            (confirmed against the reference: it sits right at the hem of
+            the composition, not in a gap underneath it) */}
+        <motion.div
+          variants={chipVariant}
+          className="absolute bottom-1 left-1/2 z-20 -translate-x-1/2 rounded-full bg-ink px-4 py-1.5"
+        >
           <span className="label-meta text-paper">{site.location}</span>
-        </div>
+        </motion.div>
 
         {/* sticker note */}
-        <div className="absolute -right-3 top-[38%] z-20 rotate-3 rounded-[var(--radius-sm)] border border-line bg-paper px-3 py-1.5 shadow-[3px_3px_0_var(--ink)] sm:-right-6">
+        <motion.div
+          variants={stickerVariant}
+          style={{ x: stickerX, y: stickerY }}
+          className="absolute -right-3 top-[38%] z-20 rounded-[var(--radius-sm)] border border-line bg-paper px-3 py-1.5 shadow-[3px_3px_0_var(--ink)] sm:-right-6"
+        >
           <p className="font-display text-xs font-normal text-ink">
             That&rsquo;s me!
           </p>
-        </div>
+        </motion.div>
       </motion.div>
     </motion.section>
   );

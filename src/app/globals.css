@@ -25,13 +25,18 @@
   --accent-dim: #123a9e;    /* exact pressed-state blue from source */
 
   /* Secondary editorial accent, used sparingly (Beyond Code / highlights) */
-  --gold: #ffc200;          /* exact value from source */
+  --gold: #ffc200;          /* exact value from source — confirmed by pixel-sampling the reference screenshot */
 
-  /* Category-card palette — exact values read from the reference's own
-     five card elements (rgb() background values in its rendered markup) */
-  --card-orange: #ff6a3d;
-  --card-pink: #f6c6d0;
-  --card-green: #c2e14b;
+  /* Category-card palette — confirmed by pixel-sampling the reference
+     screenshot directly (not guessed): these match the original values
+     almost exactly, so the earlier "lightened" pass was a mistake and is
+     reverted here. The softer look in the reference comes from a subtle
+     dot-grid texture over the flat fill, not a lighter base color — that
+     texture is added in CategoryCards.tsx. */
+  --card-orange: #fe754b;
+  --card-pink: #f6cad3;
+  --card-green: #c6e358;
+  --stripe-dark: #1d49c5;   /* darker stripe tone inside the hero arch */
 
   /* Layout */
   --container-max: 100rem;    /* 1600px content column — wide, near edge-to-edge */
@@ -71,6 +76,7 @@
   --color-card-orange: var(--card-orange);
   --color-card-pink: var(--card-pink);
   --color-card-green: var(--card-green);
+  --color-stripe-dark: var(--stripe-dark);
 
   --font-display: var(--font-display-family);
   --font-sans: var(--font-sans-family);
@@ -133,6 +139,40 @@ body {
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
+}
+
+/* Utility: faint dot-grid texture overlay used on the category cards —
+   confirmed present in the reference by contrast-boosting a screenshot;
+   it's what makes the flat card colors read as softer/lighter without
+   actually changing the base color. Applied as a pseudo-element so it
+   layers over the solid card fill at low opacity. */
+.dot-grid-texture {
+  position: relative;
+  isolation: isolate;
+}
+.dot-grid-texture::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background-image: radial-gradient(var(--ink) 1px, transparent 1px);
+  background-size: 10px 10px;
+  opacity: 0.07;
+  mix-blend-mode: multiply;
+}
+
+/* Utility: vertical two-tone stripe fill used behind the hero photo —
+   confirmed by sampling the reference's arch pixel-by-pixel: alternating
+   ~16px bands of a lighter and darker blue rather than one flat fill. */
+.arch-stripes {
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--accent) 0px,
+    var(--accent) 16px,
+    var(--stripe-dark) 16px,
+    var(--stripe-dark) 32px
+  );
 }
 
 /* Slow continuous rotation for the small "open to work" badge only.
