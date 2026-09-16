@@ -49,7 +49,7 @@ export default function CertificationsSection() {
         variants={item}
         className="label-meta text-muted"
       >
-        ( Certifications / 06 )
+        ( Certifications / 07 )
       </motion.span>
 
       <motion.h2

@@ -28,7 +28,7 @@ export default function ContactSection() {
         className="rounded-[var(--radius-md)] border border-dark-line bg-dark px-6 py-16 text-dark-ink sm:px-10 md:px-16 md:py-24"
       >
         <motion.span variants={item} className="label-meta text-dark-muted">
-          ( Let&rsquo;s talk / 09 )
+          ( Let&rsquo;s talk / 10 )
         </motion.span>
 
         <motion.h2

@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import CategoryCards from "@/components/CategoryCards";
+import WhatIBringSection from "@/components/WhatIBringSection";
 import AboutSection from "@/components/AboutSection";
 import ExperienceSection from "@/components/ExperienceSection";
 import WorkSection from "@/components/WorkSection";
@@ -18,6 +19,7 @@ export default function Home() {
       <main>
         <Hero />
         <CategoryCards />
+        <WhatIBringSection />
         <AboutSection />
         <ExperienceSection />
         <ToolsSection />

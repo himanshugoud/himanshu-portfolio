@@ -59,7 +59,7 @@ export default function ExperienceSection() {
           variants={item}
           className="label-meta text-muted"
         >
-          ( Experience / 03 )
+          ( Experience / 04 )
         </motion.span>
 
         <motion.h2

@@ -30,7 +30,7 @@ export default function BeyondCodeSection() {
           variants={item}
           className="label-meta text-ink/70"
         >
-          ( Beyond Code / 07 )
+          ( Beyond Code / 08 )
         </motion.span>
 
         <motion.h2

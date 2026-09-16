@@ -7,7 +7,7 @@ export default function WorkSection() {
   return (
     <section id="work" className="content-col border-t border-line py-20 md:py-32">
       <span className="label-meta text-muted">
-        ( Selected Work / 05 )
+        ( Selected Work / 06 )
       </span>
 
       <h2 className="mt-4 font-display text-4xl font-normal leading-[1.05] tracking-tight text-ink sm:text-5xl lg:text-[3.4rem]">

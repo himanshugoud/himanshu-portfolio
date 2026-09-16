@@ -43,7 +43,7 @@ export default function AboutSection() {
     >
       {/* ---------- Full-width eyebrow strip + divider ---------- */}
       <motion.div variants={item} className="border-b border-line pb-6">
-        <span className="label-meta text-muted">( About / 02 )</span>
+        <span className="label-meta text-muted">( About / 03 )</span>
       </motion.div>
 
       <div className="grid gap-10 pt-10 md:grid-cols-2 md:gap-16 md:pt-14">

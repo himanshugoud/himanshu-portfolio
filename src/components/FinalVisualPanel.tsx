@@ -37,7 +37,7 @@ export default function FinalVisualPanel({
           variants={item}
           className="label-meta text-accent-ink"
         >
-          ( Where I Build / 08 )
+          ( Where I Build / 09 )
         </motion.span>
 
         <motion.h2
