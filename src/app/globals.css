@@ -32,7 +32,7 @@
      almost exactly, so the earlier "lightened" pass was a mistake and is
      reverted here. The softer look in the reference comes from a subtle
      dot-grid texture over the flat fill, not a lighter base color — that
-     texture is added in CategoryCards.tsx. */
+     texture is added in WhatIBringSection.tsx. */
   --card-orange: #fe754b;
   --card-pink: #f6cad3;
   --card-green: #c6e358;
