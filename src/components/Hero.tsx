@@ -64,9 +64,15 @@ const stickerVariant = {
 };
 
 export default function Hero() {
-  // Subtle desktop-only mouse parallax across the photo composition.
-  // Disabled on touch devices — reduced-motion is handled globally via
-  // MotionConfig, which suppresses transform-driven motion values too.
+  // Subtle desktop-only mouse parallax. Confirmed against the reference
+  // that it's the TEXT column that drifts slightly with the cursor while
+  // the photo composition stays put — the previous version had this
+  // backwards (the photo moved, the text was static). The listener still
+  // lives on the photo wrapper since that's the region the cursor is
+  // over, but the resulting motion values are applied to the text column
+  // instead. Disabled on touch devices — reduced-motion is handled
+  // globally via MotionConfig, which suppresses transform-driven motion
+  // values too.
   const wrapRef = useRef<HTMLDivElement>(null);
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
@@ -97,16 +103,16 @@ export default function Hero() {
     };
   }, [mx, my]);
 
-  const archX = useTransform(sx, [-0.5, 0.5], [-4, 4]);
-  const archY = useTransform(sy, [-0.5, 0.5], [-4, 4]);
-  const photoX = useTransform(sx, [-0.5, 0.5], [-8, 8]);
-  const photoY = useTransform(sy, [-0.5, 0.5], [-8, 8]);
+  // Only the badge/ring/sticker flourishes keep a tiny parallax of their
+  // own — the arch and the photo itself no longer move at all.
   const ringX = useTransform(sx, [-0.5, 0.5], [14, -14]);
   const ringY = useTransform(sy, [-0.5, 0.5], [14, -14]);
   const badgeX = useTransform(sx, [-0.5, 0.5], [-12, 12]);
   const badgeY = useTransform(sy, [-0.5, 0.5], [-12, 12]);
   const stickerX = useTransform(sx, [-0.5, 0.5], [10, -10]);
   const stickerY = useTransform(sy, [-0.5, 0.5], [10, -10]);
+  const textX = useTransform(sx, [-0.5, 0.5], [-8, 8]);
+  const textY = useTransform(sy, [-0.5, 0.5], [-6, 6]);
 
   return (
     <motion.section
@@ -117,7 +123,7 @@ export default function Hero() {
       className="content-col grid gap-14 pb-2 pt-10 md:min-h-[max(440px,calc(100vh-160px))] md:grid-cols-[1fr_18rem] md:items-center md:gap-24 md:pt-16 lg:grid-cols-[1fr_20rem] lg:gap-32"
     >
       {/* ---------- Copy column ---------- */}
-      <div className="flex flex-col gap-6">
+      <motion.div style={{ x: textX, y: textY }} className="flex flex-col gap-6">
         <motion.span
           variants={item}
           className="label-meta flex items-center gap-2 text-muted"
@@ -201,32 +207,32 @@ export default function Hero() {
             Download Resume
           </a>
         </motion.div>
-      </div>
+      </motion.div>
 
       {/* ---------- Photo composition ---------- */}
       <motion.div
         ref={wrapRef}
         variants={photoGroup}
-        className="relative mx-auto w-full max-w-[19rem] pt-6 sm:max-w-xs md:max-w-none md:pt-0"
+        className="relative mx-auto w-full max-w-[21rem] pt-6 sm:max-w-sm md:max-w-none md:pt-0"
       >
         {/* backdrop arch — gold border wraps the full shape (not just
             an offset shadow on two edges), and the fill is a vertical
             two-tone stripe pattern rather than flat blue, both
-            confirmed by pixel-sampling the reference screenshot */}
+            confirmed by pixel-sampling the reference screenshot. Static
+            now — the arch and photo no longer carry the mouse parallax,
+            only the small flourishes (ring/badge/sticker) still do. */}
         <motion.div
           variants={archVariant}
-          style={{ x: archX, y: archY }}
           className="arch-stripes absolute inset-2 overflow-hidden rounded-t-[999px] rounded-b-[var(--radius-md)] border-[14px] border-gold"
         />
 
         {/* invisible spacer establishing the composition's footprint */}
         <div className="aspect-[4/5] w-full" aria-hidden="true" />
 
-        {/* real die-cut photo */}
+        {/* real die-cut photo — stays fixed, no parallax */}
         <motion.div
           variants={photoVariant}
-          style={{ x: photoX, y: photoY }}
-          className="pointer-events-none absolute inset-x-[-14%] bottom-0 z-[5] aspect-square"
+          className="pointer-events-none absolute inset-x-[-10%] bottom-0 z-[5] aspect-square"
         >
           <Image
             src="/images/profile/himanshu-cutout.png"

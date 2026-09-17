@@ -97,8 +97,17 @@
   }
 }
 
-* {
-  border-color: var(--line);
+/* Wrapped in @layer base so Tailwind's utility layer (e.g. border-gold,
+   border-accent) can still override it — an unlayered rule here would
+   otherwise beat every colored border utility in the project regardless
+   of specificity, since Tailwind v4 utilities live inside a cascade layer
+   and unlayered CSS always wins over layered CSS. This was silently
+   turning every colored border (the hero arch's gold border included)
+   back into the plain hairline color. */
+@layer base {
+  * {
+    border-color: var(--line);
+  }
 }
 
 html {

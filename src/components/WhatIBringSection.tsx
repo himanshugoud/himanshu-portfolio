@@ -8,15 +8,16 @@ export default function WhatIBringSection() {
   const cardsBoxRef = useRef<HTMLDivElement>(null);
 
   // Driven by the card row's own position as it travels through the
-  // viewport — confirmed against the reference by extracting the source
-  // video frame-by-frame: there is only ONE fan of cards on the page. It
-  // sits right at the bottom of the hero at rest (same peeking position
-  // the old static teaser used to occupy) and, as the page scrolls, that
-  // same fan unrotates into a flat full-detail grid while the heading
-  // above it fades in — there is no separate static teaser before it.
+  // viewport. Confirmed against a second, more precise frame-by-frame
+  // pass: the previous thresholds ("start 0.7") started the reveal after
+  // barely ~180px of scroll, while the hero's own headline was still
+  // fully on screen — nothing like the reference, where the heading and
+  // expand only begin once the hero has almost entirely scrolled away.
+  // These thresholds require close to a full hero-height of scroll before
+  // anything starts, then complete over a short, snappy range after that.
   const { scrollYProgress } = useScroll({
     target: cardsBoxRef,
-    offset: ["start 0.7", "start 0.3"],
+    offset: ["start 0.2", "start -0.15"],
   });
 
   // useScroll's raw progress isn't guaranteed to sit exactly at 0 the
@@ -54,7 +55,7 @@ export default function WhatIBringSection() {
 
         <div
           ref={cardsBoxRef}
-          className="relative mx-auto h-[22rem] w-full max-w-5xl sm:h-[26rem] md:h-[30rem]"
+          className="relative mx-auto h-[19rem] w-full max-w-5xl sm:h-[21rem] md:h-[23rem]"
         >
           {categories.map((card, i) => (
             <ExpandingCard key={card.n} card={card} index={i} progress={progress} />
@@ -86,11 +87,13 @@ function ExpandingCard({
   const initialHeight = 44;
 
   // Final state: an even, non-overlapping grid, fully flattened — matches
-  // the reference's expanded "what I bring" layout.
+  // the reference's expanded "what I bring" layout. Widened and shortened
+  // versus the first pass: the cards were rendering noticeably taller and
+  // slimmer than the reference's chunkier proportions.
   const finalLeft = (index + 0.5) * (100 / total);
   const finalTop = 50;
-  const finalWidth = 100 / total - 2;
-  const finalHeight = 94;
+  const finalWidth = 100 / total - 1;
+  const finalHeight = 90;
 
   const left = useTransform(progress, [0, 1], [`${initialLeft}%`, `${finalLeft}%`]);
   const top = useTransform(progress, [0, 1], [`${initialTop}%`, `${finalTop}%`]);
