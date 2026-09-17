@@ -8,16 +8,20 @@ export default function WhatIBringSection() {
   const cardsBoxRef = useRef<HTMLDivElement>(null);
 
   // Driven by the card row's own position as it travels through the
-  // viewport. Confirmed against a second, more precise frame-by-frame
-  // pass: the previous thresholds ("start 0.7") started the reveal after
-  // barely ~180px of scroll, while the hero's own headline was still
-  // fully on screen — nothing like the reference, where the heading and
-  // expand only begin once the hero has almost entirely scrolled away.
-  // These thresholds require close to a full hero-height of scroll before
-  // anything starts, then complete over a short, snappy range after that.
+  // viewport. Confirmed against yudhijain.com itself (not the embed) this
+  // time, frame by frame: the heading becomes fully readable and the
+  // cards finish expanding within a short, narrow scroll range, and stay
+  // that way — because the range ends while the cards' box is still in
+  // the upper-middle of the viewport, leaving room above it for the
+  // heading to still be on screen. My previous range ran all the way
+  // until the cards' box reached the very top of the viewport, which
+  // mechanically forced the heading (positioned above it) off-screen
+  // before the cards had even finished growing — so the heading was
+  // never visible at the same time as the finished cards, unlike the
+  // reference.
   const { scrollYProgress } = useScroll({
     target: cardsBoxRef,
-    offset: ["start 0.2", "start -0.15"],
+    offset: ["start 0.4", "start 0.15"],
   });
 
   // useScroll's raw progress isn't guaranteed to sit exactly at 0 the
