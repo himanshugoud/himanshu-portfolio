@@ -1,172 +1,136 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useScroll, useTransform, type MotionValue } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { categories, toneClasses, type Category } from "@/data/categories";
 
+// Word-by-word heading reveal — confirmed directly from the reference's
+// DOM: each word of the h2 is its own span, animating opacity 0→1 and
+// translateY(0.6em)→0 with a per-word stagger, not the heading fading in
+// as one block the way the earlier version did.
+const headingWords: { text: string; accent?: boolean }[] = [
+  { text: "What" },
+  { text: "I" },
+  { text: "Bring" },
+  { text: "To" },
+  { text: "The" },
+  { text: "Table.", accent: true },
+];
+
+const wordVariants = {
+  hidden: { opacity: 0, y: "0.6em" },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: [0.2, 0.7, 0.2, 1] as const },
+  },
+};
+
+const headingContainer = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.055, delayChildren: 0.05 } },
+};
+
+const revealUp = {
+  hidden: { opacity: 0, y: 16 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: [0.2, 0.7, 0.2, 1] as const },
+  },
+};
+
 export default function WhatIBringSection() {
-  const cardsBoxRef = useRef<HTMLDivElement>(null);
-
-  // Driven by the card row's own position as it travels through the
-  // viewport. Confirmed against yudhijain.com itself (not the embed) this
-  // time, frame by frame: the heading becomes fully readable and the
-  // cards finish expanding within a short, narrow scroll range, and stay
-  // that way — because the range ends while the cards' box is still in
-  // the upper-middle of the viewport, leaving room above it for the
-  // heading to still be on screen. My previous range ran all the way
-  // until the cards' box reached the very top of the viewport, which
-  // mechanically forced the heading (positioned above it) off-screen
-  // before the cards had even finished growing — so the heading was
-  // never visible at the same time as the finished cards, unlike the
-  // reference.
-  const { scrollYProgress } = useScroll({
-    target: cardsBoxRef,
-    offset: ["start 0.4", "start 0.15"],
-  });
-
-  // useScroll's raw progress isn't guaranteed to sit exactly at 0 the
-  // instant the page loads (it depends on the target's rest position
-  // relative to the viewport, which varies by viewport height) — clamp
-  // explicitly so the heading is genuinely invisible and the cards are
-  // genuinely in their small resting state before any scrolling happens,
-  // rather than a few percent "pre-opened".
-  const progress = useTransform(scrollYProgress, (v) => Math.max(0, Math.min(1, v)));
-
-  const headingOpacity = useTransform(progress, [0, 0.3], [0, 1]);
-  const headingY = useTransform(progress, [0, 0.3], [16, 0]);
-
   return (
-    <section id="services" className="content-col relative pb-28 pt-2 md:-mt-2 md:pb-32">
-      <div className="relative">
-        {/* Heading sits absolutely above the card row so it takes no
-            layout space — the row can stay pulled up against the hero's
-            fold exactly like the old teaser did, while the heading fades
-            in on top of that same space as the page scrolls. */}
-        <motion.div
-          style={{ opacity: headingOpacity, y: headingY }}
-          className="pointer-events-none absolute inset-x-0 bottom-full mb-10 text-center md:mb-14"
-        >
-          <span className="label-meta text-muted">( What I Bring / 02 )</span>
-          <h2 className="mx-auto mt-4 max-w-3xl font-display text-4xl font-normal uppercase leading-[0.95] tracking-tight text-ink sm:text-5xl md:text-6xl">
-            What I Bring To
-            <br />
-            The <span className="text-accent">Table.</span>
-          </h2>
-          <p className="mx-auto mt-4 max-w-md text-muted">
-            Five focus areas, and one stubborn habit of curiosity.
-          </p>
-        </motion.div>
-
-        <div
-          ref={cardsBoxRef}
-          className="relative mx-auto h-[19rem] w-full max-w-5xl sm:h-[21rem] md:h-[23rem]"
-        >
-          {categories.map((card, i) => (
-            <ExpandingCard key={card.n} card={card} index={i} progress={progress} />
+    <section id="services" className="content-col py-16 md:py-20">
+      <motion.div
+        variants={headingContainer}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.5 }}
+        className="mx-auto max-w-2xl text-center"
+      >
+        <motion.span variants={revealUp} className="label-meta text-muted">
+          ( What I Bring / 02 )
+        </motion.span>
+        <h2 className="mx-auto mt-4 max-w-[15ch] font-display text-4xl font-normal uppercase leading-[0.94] tracking-tight text-ink sm:text-5xl md:text-6xl">
+          {headingWords.map((w, i) => (
+            <motion.span
+              key={i}
+              variants={wordVariants}
+              className={`inline-block ${w.accent ? "text-accent" : ""}`}
+            >
+              {w.text}
+              {i < headingWords.length - 1 ? "\u00A0" : ""}
+            </motion.span>
           ))}
-        </div>
+        </h2>
+        <motion.p variants={revealUp} className="mx-auto mt-4 max-w-md text-muted">
+          Five focus areas, and one stubborn habit of curiosity.
+        </motion.p>
+      </motion.div>
+
+      <div
+        className="mt-10 grid gap-[clamp(16px,1.8vw,26px)] md:mt-14"
+        style={{ gridTemplateColumns: "repeat(auto-fit, minmax(176px, 1fr))" }}
+      >
+        {categories.map((card, i) => (
+          <RevealCard key={card.n} card={card} index={i} />
+        ))}
       </div>
     </section>
   );
 }
 
-function ExpandingCard({
-  card,
-  index,
-  progress,
-}: {
-  card: Category;
-  index: number;
-  progress: MotionValue<number>;
-}) {
-  const total = categories.length;
-  const isRaised = index % 2 === 1;
+function RevealCard({ card, index }: { card: Category; index: number }) {
+  const ref = useRef<HTMLDivElement>(null);
 
-  // Initial state mirrors the small fanned teaser at the bottom of the
-  // hero: clustered near center, alternating vertical stagger, each card
-  // rotated by its own small angle.
-  const initialLeft = 50 + (index - (total - 1) / 2) * 10.5;
-  const initialTop = isRaised ? 40 : 56;
-  const initialWidth = 15;
-  const initialHeight = 44;
+  // Each card reveals on its OWN scroll position, not a single shared
+  // progress for the whole row — confirmed against the reference's
+  // captured inline styles, where each card carries its own
+  // translate/rotate/scale that eases to identity as it's individually
+  // scrolled into place. The card's real size and grid slot never
+  // change — only this transform does, which is what let the reference
+  // avoid any text-overflow issue during the animation: the box is
+  // always full size, just visually offset and shrunk on top of it.
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start 0.92", "start 0.6"],
+  });
+  const progress = useTransform(scrollYProgress, (v) => Math.max(0, Math.min(1, v)));
 
-  // Final state: an even, non-overlapping grid, fully flattened — matches
-  // the reference's expanded "what I bring" layout. Widened and shortened
-  // versus the first pass: the cards were rendering noticeably taller and
-  // slimmer than the reference's chunkier proportions.
-  const finalLeft = (index + 0.5) * (100 / total);
-  const finalTop = 50;
-  const finalWidth = 100 / total - 1;
-  const finalHeight = 90;
-
-  const left = useTransform(progress, [0, 1], [`${initialLeft}%`, `${finalLeft}%`]);
-  const top = useTransform(progress, [0, 1], [`${initialTop}%`, `${finalTop}%`]);
-  const width = useTransform(progress, [0, 1], [`${initialWidth}%`, `${finalWidth}%`]);
-  const height = useTransform(progress, [0, 1], [`${initialHeight}%`, `${finalHeight}%`]);
-  const rotate = useTransform(progress, [0, 1], [card.rotate, 0]);
-  const bulletsOpacity = useTransform(progress, [0.55, 0.9], [0, 1]);
-  const zIndex = isRaised ? index : index + 10;
-
-  // The title is set as two fixed lines (e.g. "Full-Stack" /
-  // "Development"), and the card is only ~15% of the row's width while
-  // small — a static text-2xl size overflowed and got clipped mid-card
-  // during the transition (confirmed against the recording: "Full-Stack
-  // Developmen" with the final "t" cut off by the card edge). Scaling the
-  // font size down at the start and up to full size by the end keeps the
-  // text inside the card at every point of the animation, not just at the
-  // two ends.
-  const titleFontSize = useTransform(progress, [0, 1], ["0.7rem", "1.375rem"]);
-
-  // Separately: while the cards are still clustered near the start, a
-  // higher-stacked neighbor visually overlaps part of the card behind it
-  // (confirmed against the recording: the blue card's edge covered the
-  // "F" of "Frontend", leaving "rontend Engineering"). Scaling the font
-  // down doesn't fix that — it's a stacking-order overlap, not a sizing
-  // one — so the title itself stays invisible until the cards have spread
-  // out enough to clear each other, then fades in.
-  const titleOpacity = useTransform(progress, [0.05, 0.4], [0, 1]);
+  const isOdd = index % 2 === 1;
+  const y = useTransform(progress, [0, 1], [130, 0]);
+  const rotate = useTransform(progress, [0, 1], [isOdd ? 7 : -7, 0]);
+  const scale = useTransform(progress, [0, 1], [0.82, 1]);
+  const opacity = useTransform(progress, [0, 1], [0, 1]);
 
   return (
-    <motion.div
-      style={{
-        position: "absolute",
-        left,
-        top,
-        width,
-        height,
-        x: "-50%",
-        y: "-50%",
-        rotate,
-        zIndex,
-      }}
-      className={`dot-grid-texture flex flex-col gap-2 overflow-hidden rounded-[var(--radius-card)] border p-4 shadow-[0_22px_48px_-26px_rgba(23,21,15,0.5)] sm:gap-3 sm:p-5 ${toneClasses[card.tone]}`}
+    <motion.article
+      ref={ref}
+      style={{ y, rotate, scale, opacity, transformOrigin: "50% 50%" }}
+      className={`dot-grid-texture flex min-h-[clamp(300px,33vw,404px)] flex-col gap-[clamp(13px,1.3vw,18px)] rounded-[18px] p-[clamp(20px,1.7vw,27px)] shadow-[0_22px_48px_-26px_rgba(23,21,15,0.7)] ${toneClasses[card.tone]}`}
     >
-      <card.Icon className="h-6 w-6 shrink-0 opacity-90 sm:h-7 sm:w-7" strokeWidth={1.7} />
+      <card.Icon className="h-7 w-7 opacity-90" strokeWidth={1.7} />
       <span
-        className="shrink-0 text-[10px] uppercase tracking-[0.1em] opacity-70 sm:text-[11px]"
+        className="text-[11px] uppercase tracking-[0.1em] opacity-70"
         style={{ fontFamily: "var(--font-label)" }}
       >
         {card.n}
       </span>
-      <motion.h3
-        style={{ fontSize: titleFontSize, opacity: titleOpacity }}
-        className="shrink-0 font-display font-normal leading-[1.05] tracking-tight"
-      >
+      <h3 className="font-display text-xl font-normal leading-[0.95] tracking-tight sm:text-2xl">
         {card.title[0]}
         <br />
         {card.title[1]}
-      </motion.h3>
-      <motion.ul
-        style={{ opacity: bulletsOpacity }}
-        className="mt-auto flex flex-col gap-1.5 text-[12px] font-semibold leading-tight sm:text-[13.5px]"
-      >
+      </h3>
+      <ul className="mt-auto flex flex-col gap-1.5 text-[13.5px] font-semibold leading-tight">
         {card.bullets.map((bullet) => (
           <li key={bullet} className="flex gap-2">
             <span className="opacity-60">&rsaquo;</span>
             {bullet}
           </li>
         ))}
-      </motion.ul>
-    </motion.div>
+      </ul>
+    </motion.article>
   );
 }
