@@ -39,8 +39,14 @@
   --stripe-dark: #1d49c5;   /* darker stripe tone inside the hero arch */
 
   /* Layout */
-  --container-max: 100rem;    /* 1600px content column — wide, near edge-to-edge */
-  --gutter: clamp(1.5rem, 5vw, 5rem);
+  /* Confirmed directly from the reference's own inline styles (captured
+     via DevTools on both the hero row and the #bring section): both use
+     max-width: 1320px, not a near-edge-to-edge column. The previous
+     100rem (1600px) value was never actually verified against the
+     reference — it made every section's content, including the card
+     grid, noticeably wider and more spread out than the real site. */
+  --container-max: 82.5rem;   /* 1320px, confirmed via DevTools */
+  --gutter: clamp(1.25rem, 4vw, 3.5rem);
 
   /* Radii */
   --radius-sm: 4px;
