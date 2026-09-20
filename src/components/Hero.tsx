@@ -120,7 +120,7 @@ export default function Hero() {
       variants={container}
       initial="hidden"
       animate="show"
-      className="content-col grid gap-14 pb-2 pt-10 md:min-h-[max(440px,calc(100vh-160px))] md:grid-cols-[1fr_18rem] md:items-center md:gap-24 md:pt-16 lg:grid-cols-[1fr_20rem] lg:gap-32"
+      className="content-col grid gap-14 pt-[clamp(16px,2.4vh,40px)] pb-[clamp(16px,2.4vh,40px)] md:min-h-[max(480px,calc(100vh-190px))] md:grid-cols-[1fr_18rem] md:items-center md:gap-24 lg:grid-cols-[1fr_20rem] lg:gap-32"
     >
       {/* ---------- Copy column ---------- */}
       <motion.div style={{ x: textX, y: textY }} className="flex flex-col gap-6">

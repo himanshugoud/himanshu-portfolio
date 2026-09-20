@@ -42,13 +42,22 @@ const revealUp = {
 
 export default function WhatIBringSection() {
   return (
-    <section id="services" className="content-col py-16 md:py-20">
+    <section id="services" className="content-col relative pb-16 pt-0 md:pb-20">
+      {/* Heading sits absolutely above the card grid so it takes no layout
+          space of its own — confirmed necessary against the reference:
+          the cards start peeking right at the bottom of the hero fold,
+          which is only possible if the (still off-screen / not-yet-
+          revealed) heading isn't pushing them down first. The margin on
+          `viewport` delays the reveal trigger until the section has
+          actually been scrolled to, rather than firing immediately
+          because the heading happens to already be within the tall
+          absolute box at page load. */}
       <motion.div
         variants={headingContainer}
         initial="hidden"
         whileInView="show"
-        viewport={{ once: true, amount: 0.5 }}
-        className="mx-auto max-w-2xl text-center"
+        viewport={{ once: true, amount: 0.6, margin: "0px 0px -35% 0px" }}
+        className="pointer-events-none absolute inset-x-0 bottom-full mx-auto mb-8 max-w-2xl text-center md:mb-10"
       >
         <motion.span variants={revealUp} className="label-meta text-muted">
           ( What I Bring / 02 )
@@ -71,7 +80,7 @@ export default function WhatIBringSection() {
       </motion.div>
 
       <div
-        className="mt-10 grid gap-[clamp(16px,1.8vw,26px)] md:mt-14"
+        className="grid gap-[clamp(16px,1.8vw,26px)] pt-2"
         style={{ gridTemplateColumns: "repeat(auto-fit, minmax(176px, 1fr))" }}
       >
         {categories.map((card, i) => (
@@ -99,16 +108,20 @@ function RevealCard({ card, index }: { card: Category; index: number }) {
   });
   const progress = useTransform(scrollYProgress, (v) => Math.max(0, Math.min(1, v)));
 
+  // Confirmed against the reference recording: the cards are fully
+  // visible (colored, readable) even in their compact pre-reveal state at
+  // rest — they don't fade in from invisible, they settle/straighten
+  // into place. Animating opacity 0→1 here was hiding them entirely at
+  // rest, which is why nothing peeked at the bottom of the hero fold.
   const isOdd = index % 2 === 1;
-  const y = useTransform(progress, [0, 1], [130, 0]);
+  const y = useTransform(progress, [0, 1], [46, 0]);
   const rotate = useTransform(progress, [0, 1], [isOdd ? 7 : -7, 0]);
-  const scale = useTransform(progress, [0, 1], [0.82, 1]);
-  const opacity = useTransform(progress, [0, 1], [0, 1]);
+  const scale = useTransform(progress, [0, 1], [0.9, 1]);
 
   return (
     <motion.article
       ref={ref}
-      style={{ y, rotate, scale, opacity, transformOrigin: "50% 50%" }}
+      style={{ y, rotate, scale, transformOrigin: "50% 50%" }}
       className={`dot-grid-texture flex min-h-[clamp(300px,33vw,404px)] flex-col gap-[clamp(13px,1.3vw,18px)] rounded-[18px] p-[clamp(20px,1.7vw,27px)] shadow-[0_22px_48px_-26px_rgba(23,21,15,0.7)] ${toneClasses[card.tone]}`}
     >
       <card.Icon className="h-7 w-7 opacity-90" strokeWidth={1.7} />
