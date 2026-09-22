@@ -1,124 +1,35 @@
 "use client";
-
 import { motion } from "framer-motion";
 
-const skills: {
-  name: string;
-  descriptor: string;
-  fill: number;
-  color: "accent" | "orange" | "gold" | "pink" | "green";
-}[] = [
-  { name: "React.js", descriptor: "Daily driver", fill: 90, color: "accent" },
-  { name: "Node.js & Express", descriptor: "Core stack", fill: 85, color: "orange" },
-  { name: "MongoDB", descriptor: "Core stack", fill: 85, color: "green" },
-  { name: "JavaScript / TypeScript", descriptor: "Core stack", fill: 88, color: "gold" },
-  { name: "Firebase", descriptor: "Comfortable", fill: 72, color: "pink" },
-  { name: "Git & GitHub", descriptor: "Daily driver", fill: 90, color: "accent" },
+const tools=[
+  {name:'React.js',desc:'Daily driver',pct:95,color:'#2854df'},
+  {name:'Node.js & Express',desc:'Core stack',pct:88,color:'#c5283d'},
+  {name:'MongoDB',desc:'Core stack',pct:85,color:'#3f9142'},
+  {name:'JavaScript / TypeScript',desc:'Core stack',pct:90,color:'#f56549'},
+  {name:'Firebase',desc:'Comfortable',pct:75,color:'#ffc800'},
+  {name:'Git & GitHub',desc:'Daily driver',pct:92,color:'#2854df'},
 ];
 
-const alsoTools = ["VS Code", "Postman", "Vite", "Tailwind CSS", "MongoDB Atlas"];
+const aiTools=[
+  {name:'Claude',desc:'Architecture & debugging'},
+  {name:'Claude Code',desc:'Shipping & refactors'},
+  {name:'ChatGPT',desc:'Rubber-duck & docs'},
+  {name:'GitHub Copilot',desc:'Inline completion'},
+];
 
-const barColorClasses: Record<(typeof skills)[number]["color"], string> = {
-  accent: "bg-accent",
-  orange: "bg-card-orange",
-  gold: "bg-gold",
-  pink: "bg-card-pink",
-  green: "bg-card-green",
-};
-
-const container = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.07, delayChildren: 0.05 } },
-};
-
-const item = {
-  hidden: { opacity: 0, y: 18 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const },
-  },
-};
-
-const bar = {
-  hidden: { scaleX: 0 },
-  show: {
-    scaleX: 1,
-    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] as const },
-  },
-};
-
-export default function ToolsSection() {
-  return (
-    <section id="tools" className="content-col py-10 md:py-16">
-      <motion.div
-        variants={container}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.15 }}
-        className="rounded-[var(--radius-md)] border border-dark-line bg-dark px-6 py-14 text-dark-ink sm:px-10 md:px-16 md:py-20"
-      >
-        <motion.div
-          variants={item}
-          className="flex items-center justify-between border-b border-dark-line pb-6"
-        >
-          <span className="label-meta text-dark-muted">
-            ( Tools / 05 )
-          </span>
-          <span
-            className="hidden text-xl text-dark-muted sm:block"
-            style={{ fontFamily: "var(--font-hand)" }}
-          >
-            still adding to it &#8600;
-          </span>
-        </motion.div>
-
-        <motion.h2
-          variants={item}
-          className="mt-8 font-display text-4xl font-normal uppercase leading-[1.02] tracking-tight sm:text-5xl lg:text-[3.4rem]"
-        >
-          The tools
-          <br />
-          on my bench.
-        </motion.h2>
-
-        <div className="mt-12 grid gap-x-16 gap-y-10 sm:grid-cols-2 md:mt-16">
-          {skills.map((skill) => (
-            <motion.div key={skill.name} variants={item} className="group">
-              <div className="flex items-baseline justify-between transition-transform duration-300 ease-out group-hover:translate-x-1.5">
-                <span className="font-display text-lg font-normal transition-colors duration-300 group-hover:text-accent-ink">
-                  {skill.name}
-                </span>
-                <span className="label-meta text-dark-muted transition-colors duration-300 group-hover:text-dark-ink">
-                  {skill.descriptor}
-                </span>
-              </div>
-              <div className="mt-3 h-px w-full origin-left bg-dark-line transition-transform duration-300 ease-out group-hover:scale-y-[3]">
-                <motion.div
-                  variants={bar}
-                  style={{ width: `${skill.fill}%`, transformOrigin: "left" }}
-                  className={`h-px ${barColorClasses[skill.color]}`}
-                />
-              </div>
-            </motion.div>
-          ))}
-        </div>
-
-        <motion.div
-          variants={item}
-          className="mt-12 flex flex-wrap items-center gap-3 border-t border-dark-line pt-8 md:mt-16"
-        >
-          <span className="label-meta text-dark-muted">Also</span>
-          {alsoTools.map((tool) => (
-            <span
-              key={tool}
-              className="label-meta rounded-full border border-dark-line px-3 py-1.5 text-dark-ink"
-            >
-              {tool}
-            </span>
-          ))}
-        </motion.div>
-      </motion.div>
-    </section>
-  );
-}
+export default function ToolsSection(){return <section className="tools-section content-col"><div className="tools-panel">
+  <div className="tools-head"><span className="section-label">( TOOLKIT / 04 )</span><span className="hand">still adding to it ↘</span></div>
+  <h2>THE TOOLS ON<br/>MY BENCH.</h2>
+  <p className="tools-intro">AI stays in the loop, never at the wheel — it speeds up the typing, the decisions stay mine.</p>
+  <div className="tool-grid">{tools.map((t,i)=>
+    <motion.div key={t.name} className="tool-row" initial={{opacity:0,y:10}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{delay:i*.05}}>
+      <div className="tool-row-top"><strong>{t.name}</strong><span>{t.desc}</span></div>
+      <div className="tool-bar-track"><motion.div className="tool-bar-fill" style={{background:t.color}} initial={{width:0}} whileInView={{width:`${t.pct}%`}} viewport={{once:true}} transition={{duration:.8,delay:i*.05+.1,ease:[0.22,1,0.36,1]}}/></div>
+    </motion.div>
+  )}</div>
+  <div className="also"><span>ALSO</span>{['VS Code','Postman','Vite','Tailwind CSS','MongoDB Atlas'].map(x=><b key={x}>{x}</b>)}</div>
+  <div className="ai-loop">
+    <div className="ai-loop-head"><span className="ai-dot"/>AI in the workflow</div>
+    <div className="ai-loop-grid">{aiTools.map(t=><div key={t.name} className="ai-loop-row"><strong>{t.name}</strong><span>{t.desc}</span></div>)}</div>
+  </div>
+</div></section>}

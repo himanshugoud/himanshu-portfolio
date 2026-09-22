@@ -27,20 +27,20 @@ function getServerSnapshot() {
 }
 
 /**
- * Minimal custom cursor: a small dot that expands slightly over
- * interactive elements. Desktop (fine pointer) only — untouched on
- * mobile/tablet. Respects prefers-reduced-motion by rendering nothing.
- *
- * `enabled` is read via useSyncExternalStore rather than useState+useEffect
- * specifically so the server-rendered HTML and the client's first render
- * agree (both `false`) — avoiding a hydration mismatch — while still
- * updating live if the user changes pointer/motion settings mid-session.
+ * Custom cursor: a small dot that expands into a colored label pill when
+ * hovering anything tagged with data-cursor-label (and optionally
+ * data-cursor-color / data-cursor-ink for a per-element accent). Falls back
+ * to a plain dark dot on plain links/buttons. Desktop (fine pointer) only —
+ * untouched on mobile/tablet. Respects prefers-reduced-motion by rendering
+ * nothing.
  */
 export default function CustomCursor() {
   const dotRef = useRef<HTMLDivElement>(null);
   const enabled = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
-  const [hovering, setHovering] = useState(false);
   const [visible, setVisible] = useState(false);
+  const [hovering, setHovering] = useState(false);
+  const [label, setLabel] = useState("");
+  const [colors, setColors] = useState({ bg: "#17150f", ink: "#f7f6f2" });
 
   useEffect(() => {
     if (!enabled) return;
@@ -51,7 +51,24 @@ export default function CustomCursor() {
         dotRef.current.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
       }
       const target = e.target as HTMLElement;
-      setHovering(!!target.closest("a, button, [data-cursor-hover]"));
+      const labelHost = target.closest<HTMLElement>("[data-cursor-label]");
+      const plainHost = target.closest("a, button, [data-cursor-hover]");
+
+      if (labelHost) {
+        setHovering(true);
+        setLabel(labelHost.dataset.cursorLabel ?? "");
+        setColors({
+          bg: labelHost.dataset.cursorColor ?? "#2854df",
+          ink: labelHost.dataset.cursorInk ?? "#f7f6f2",
+        });
+      } else if (plainHost) {
+        setHovering(true);
+        setLabel("");
+        setColors({ bg: "#17150f", ink: "#f7f6f2" });
+      } else {
+        setHovering(false);
+        setLabel("");
+      }
     };
     const leave = () => setVisible(false);
 
@@ -65,16 +82,24 @@ export default function CustomCursor() {
 
   if (!enabled) return null;
 
+  const expanded = hovering && label.length > 0;
+
   return (
     <div
       ref={dotRef}
       aria-hidden="true"
-      className="pointer-events-none fixed left-0 top-0 z-[100] -translate-x-1/2 -translate-y-1/2 rounded-full bg-ink transition-[width,height,opacity] duration-150 ease-out"
+      className="cursor-dot"
       style={{
-        width: hovering ? 28 : 8,
-        height: hovering ? 28 : 8,
-        opacity: visible ? (hovering ? 0.12 : 0.55) : 0,
+        opacity: visible ? 1 : 0,
+        width: expanded ? "auto" : hovering ? 26 : 8,
+        height: expanded ? 38 : hovering ? 26 : 8,
+        padding: expanded ? "0 18px" : 0,
+        borderRadius: 999,
+        background: hovering ? colors.bg : "#17150f",
+        color: colors.ink,
       }}
-    />
+    >
+      {label && <span className="cursor-label">{label}</span>}
+    </div>
   );
 }

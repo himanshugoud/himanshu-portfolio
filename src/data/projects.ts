@@ -10,6 +10,8 @@ export type Project = {
   image: string;
   liveUrl: string;
   githubUrl: string;
+  accent: string;
+  accentInk: string;
 };
 
 export const projects: Project[] = [
@@ -29,6 +31,8 @@ export const projects: Project[] = [
     image: "/images/projects/raktsetu.png",
     liveUrl: "https://raktsetu-phi.vercel.app/",
     githubUrl: "https://github.com/himanshugoud/raktsetu",
+    accent: "#c5283d",
+    accentInk: "#f7f6f2",
   },
   {
     n: "02",
@@ -46,5 +50,7 @@ export const projects: Project[] = [
     image: "/images/projects/smartpark.png",
     liveUrl: "https://smartpark-hg.web.app/",
     githubUrl: "https://github.com/himanshugoud/smartpark",
+    accent: "#2854df",
+    accentInk: "#f7f6f2",
   },
 ];
