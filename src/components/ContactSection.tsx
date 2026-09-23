@@ -3,7 +3,7 @@ import { site } from "@/lib/site";
 
 export default function ContactSection(){return <section id="contact" className="contact-section">
   <div className="contact-panel content-col">
-    <span className="section-label">( LET’S TALK / 07 )</span>
+    <span className="section-label">( LET’S TALK / 08 )</span>
     <h2>TELL ME WHAT<br/>YOU’RE <span>BUILDING.</span></h2>
     <p className="hand">I’ll ask why.</p>
     <div className="contact-links">
