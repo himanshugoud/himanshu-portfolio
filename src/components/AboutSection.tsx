@@ -8,7 +8,7 @@ export default function AboutSection(){
    <div className="section-rule"><span className="section-label">( ABOUT / 02 )</span></div>
    <div className="about-grid">
     <div>
-      <h2><RevealWords text="I BUILD ACROSS PRODUCTS, SYSTEMS & REAL-WORLD PROBLEMS." accentWords={5} /></h2>
+      <h2><RevealWords text="I BUILD ACROSS PRODUCTS, SYSTEMS & REAL-WORLD PROBLEMS, THEN SHIP THEM." accentStart={3} accentEnd={8} /></h2>
     </div>
     <div className="about-copy">
       <span className="section-label">( IN SHORT )</span>
