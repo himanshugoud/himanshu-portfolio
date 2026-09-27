@@ -100,7 +100,7 @@ a{color:inherit;text-decoration:none}
 .about-grid h2 .accent,.behind-grid h2 .accent{color:var(--orange)}
 .marker{background:linear-gradient(transparent 62%,rgba(255,200,0,.55) 62%,rgba(255,200,0,.55) 92%,transparent 92%);padding:0 .05em}
 .about-copy{padding-top:0}.about-copy .section-label{display:block;margin-bottom:20px}.about-copy p{font-size:15px;line-height:1.58;color:#57534b;max-width:47ch;margin:0 0 17px}.about-copy .about-lead{font-size:17px;line-height:1.35;color:var(--ink);font-weight:600}.about-copy .about-lead b{color:var(--blue)}
-.hand{font-family:var(--hand)!important;font-size:24px!important;color:var(--blue)!important;margin-top:27px!important}.about-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}.about-tags span{font-family:var(--mono);font-size:9px;letter-spacing:.05em;border:1px solid #d6d1c8;border-radius:999px;padding:7px 10px}
+.hand{font-family:var(--hand);font-size:24px;color:var(--blue);margin-top:27px}.about-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}.about-tags span{font-family:var(--mono);font-size:9px;letter-spacing:.05em;border:1px solid #d6d1c8;border-radius:999px;padding:7px 10px}
 
 /* EXPERIENCE */
 .experience{display:grid;grid-template-columns:1fr 1fr;gap:95px;padding-bottom:135px}
@@ -139,7 +139,7 @@ a{color:inherit;text-decoration:none}
 .lesson-body b{display:block;font-weight:700;font-size:16px;line-height:1.4;color:var(--yellow);opacity:1;margin-bottom:8px}
 .desk-block{margin-top:56px}
 .desk-block-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:16px}
-.desk-block-head>.hand{font-family:var(--hand);font-size:clamp(1.3rem,2.4vw,1.8rem);color:var(--yellow)}
+.desk-block-head>.hand{font-family:var(--hand);font-size:clamp(1.3rem,2.4vw,1.8rem);color:var(--yellow);margin-top:0}
 .desk-block-head>.section-label{color:rgba(247,246,242,.6)}
 .desk-frame{background:var(--paper);border-radius:20px;padding:16px}
 .desk-placeholder{min-height:280px;border:1.5px dashed #ddd9cf;border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;color:#8a857a;text-align:center}
