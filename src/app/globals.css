@@ -43,7 +43,8 @@ a{color:inherit;text-decoration:none}
 
 /* HERO — 1356x720 reference geometry: x≈90 for copy, x≈940 for image, top≈200. */
 .hero{min-height:592px;position:relative}
-.hero-peek{position:absolute;left:50%;bottom:-34px;transform:translateX(-50%);width:min(calc(100% - 180px),1320px);display:flex;justify-content:center;gap:16px;pointer-events:none;z-index:2}
+.hero-peek{position:absolute;left:50%;bottom:-34px;transform:translateX(-50%);width:min(calc(100% - 180px),1320px);pointer-events:none;z-index:2}
+.hero-peek-inner{display:flex;justify-content:center;gap:16px}
 .hero-peek-card{width:60px;height:82px;border-radius:13px;display:flex;align-items:flex-start;padding:12px;box-shadow:0 18px 34px -20px rgba(23,21,15,.55)}
 .hero-inner{width:min(calc(100% - 180px),1320px);margin:auto;min-height:592px;display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:64px;align-items:start;padding-top:59px}
 .hero-copy{padding-top:0;position:relative;z-index:3;max-width:600px}

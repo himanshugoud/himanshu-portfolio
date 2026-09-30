@@ -50,16 +50,18 @@ export default function Hero() {
         </motion.div>
       </div>
 
-      <motion.div className="hero-peek" aria-hidden="true" initial={{opacity:0,y:24}} animate={{opacity:1,y:0}} transition={{duration:.7,delay:.35,ease}}>
-        {categories.map((c) => {
-          const Icon = c.Icon;
-          return (
-            <div key={c.n} className={`hero-peek-card ${toneClasses[c.tone]}`} style={{transform:`rotate(${c.rotate}deg)`}}>
-              <Icon size={16} strokeWidth={1.7} />
-            </div>
-          );
-        })}
-      </motion.div>
+      <div className="hero-peek" aria-hidden="true">
+        <motion.div className="hero-peek-inner" initial={{opacity:0,y:24}} animate={{opacity:1,y:0}} transition={{duration:.7,delay:.35,ease}}>
+          {categories.map((c) => {
+            const Icon = c.Icon;
+            return (
+              <div key={c.n} className={`hero-peek-card ${toneClasses[c.tone]}`} style={{transform:`rotate(${c.rotate}deg)`}}>
+                <Icon size={16} strokeWidth={1.7} />
+              </div>
+            );
+          })}
+        </motion.div>
+      </div>
     </section>
   );
 }
