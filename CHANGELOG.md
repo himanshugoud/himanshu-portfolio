@@ -56,3 +56,21 @@ verified by inspecting actual rendered HTML/CSS output rather than by eye.
 Do a visual pass yourself after `npm run dev` before you consider this final
 — particularly mobile breakpoints, which I edited but couldn't visually
 confirm.
+
+## Hero fidelity pass (15 reported differences)
+
+- Name + surname on one line; hero heading font swapped to Londrina Solid Black
+  (closest free match to the reference's heavy hand-cut display face, chosen after
+  rendering 13 candidates side by side); sized to the reference cap height.
+- Curved (SVG) yellow underline under the first name only; hand-drawn curved arrow
+  before the heading (hidden <900px).
+- Photo scaled up so the head rises above the arch (desktop only, to avoid mobile overflow).
+- Hero text block follows the cursor across the whole hero (spring parallax).
+- Hover shadow on both buttons (blue for View Work, dark for Download Resume).
+- Removed the duplicate mini cards. The five real cards now exist once: clustered,
+  overlapping and slightly translucent at the bottom of the first screen, then
+  scroll-driven into the grid (growing + straightening). Below 900px they just stack.
+- Hero fills the first screen so "What I bring" starts below the fold on any height;
+  its label/heading/paragraph now reveal with motion, timed to appear above the deck.
+- Badge moved off the arch border; ring now sits behind arch and photo.
+- Hero paragraph wraps to 3 lines with a short last line.

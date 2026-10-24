@@ -5,7 +5,7 @@ import { Sparkles } from "lucide-react";
 import { site } from "@/lib/site";
 import { motion } from "framer-motion";
 import RevealWords from "./RevealWords";
-import { categories, toneClasses } from "@/data/categories";
+import HeroParallax from "./HeroParallax";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -13,13 +13,22 @@ export default function Hero() {
   return (
     <section id="home" className="hero">
       <div className="hero-inner">
-        <div className="hero-copy">
+        <HeroParallax className="hero-copy">
           <motion.div initial={{opacity:0,y:10}} animate={{opacity:1,y:0}} transition={{duration:.55,ease}} className="hero-eyebrow">
             <span /> FULL-STACK DEVELOPER
           </motion.div>
           <motion.h1 initial={{opacity:0,y:18}} animate={{opacity:1,y:0}} transition={{duration:.65,delay:.08,ease}}>
+            <svg className="hero-arrow" viewBox="0 0 90 150" fill="none" stroke="#17150f" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M72 6 C 30 28 6 72 24 124" />
+              <path d="M9 102 L 24 130 L 46 116" />
+            </svg>
             <RevealWords text="HELLO, I’M" as="span" /><br />
-            <span className="hero-name">HIMANSHU</span> GOUD
+            <span className="hero-name">
+              HIMANSHU
+              <svg className="hero-name-curve" viewBox="0 0 240 16" preserveAspectRatio="none" aria-hidden="true">
+                <path d="M4 11 C 62 3 156 3 236 8" fill="none" stroke="var(--yellow)" strokeWidth="6" strokeLinecap="round" />
+              </svg>
+            </span> GOUD
             <Sparkles className="hero-spark" aria-hidden="true" />
           </motion.h1>
           <motion.p initial={{opacity:0,y:12}} animate={{opacity:1,y:0}} transition={{duration:.55,delay:.18,ease}}>
@@ -29,11 +38,11 @@ export default function Hero() {
             <a href="#work" className="pill primary">View Work <span>↘</span></a>
             <a href={site.links.resume} target="_blank" rel="noreferrer" className="pill secondary">Download Resume</a>
           </motion.div>
-        </div>
+        </HeroParallax>
 
         <motion.div className="hero-art" initial={{opacity:0, y:18}} animate={{opacity:1,y:0}} transition={{duration:.8,delay:.15,ease}}>
-          <div className="hero-arch" aria-hidden="true" />
           <div className="hero-ring" aria-hidden="true" />
+          <div className="hero-arch" aria-hidden="true" />
           <svg className="hero-badge" viewBox="0 0 120 120" aria-hidden="true">
             <defs>
               <path id="badgePath" d="M60,60 m-42,0 a42,42 0 1,1 84,0 a42,42 0 1,1 -84,0" fill="none" />
@@ -47,19 +56,6 @@ export default function Hero() {
           <div className="hero-sticker">That’s me!</div>
           <Image src="/images/profile/himanshu-cutout.png" alt="Himanshu Goud" fill priority sizes="360px" className="hero-photo" />
           <div className="hero-location">GWALIOR, INDIA</div>
-        </motion.div>
-      </div>
-
-      <div className="hero-peek" aria-hidden="true">
-        <motion.div className="hero-peek-inner" initial={{opacity:0,y:24}} animate={{opacity:1,y:0}} transition={{duration:.7,delay:.35,ease}}>
-          {categories.map((c) => {
-            const Icon = c.Icon;
-            return (
-              <div key={c.n} className={`hero-peek-card ${toneClasses[c.tone]}`} style={{transform:`rotate(${c.rotate}deg)`}}>
-                <Icon size={16} strokeWidth={1.7} />
-              </div>
-            );
-          })}
         </motion.div>
       </div>
     </section>

@@ -37,6 +37,7 @@ export default function RevealWords({
   accentEnd,
   accentClassName = "accent",
   className,
+  viewportMargin,
 }: {
   text: string;
   as?: keyof React.JSX.IntrinsicElements;
@@ -45,6 +46,9 @@ export default function RevealWords({
   accentEnd?: number;
   accentClassName?: string;
   className?: string;
+  /** Optional rootMargin for the in-view trigger, e.g. "0px 0px -32% 0px" to
+   *  fire only once the heading is in the upper part of the screen. */
+  viewportMargin?: string;
 }) {
   const words = text.split(" ");
   const rangeStart = accentStart ?? words.length - accentWords;
@@ -55,7 +59,7 @@ export default function RevealWords({
       variants={container}
       initial="hidden"
       whileInView="show"
-      viewport={{ once: true, amount: 0.6 }}
+      viewport={{ once: true, amount: 0.6, margin: viewportMargin }}
       className={className}
     >
       {words.map((w, i) => (

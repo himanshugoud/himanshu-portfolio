@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "@fontsource/archivo-black/400.css";
+import "@fontsource/londrina-solid/900.css";
 import "@fontsource/hanken-grotesk/400.css";
 import "@fontsource/hanken-grotesk/500.css";
 import "@fontsource/hanken-grotesk/600.css";
